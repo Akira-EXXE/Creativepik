@@ -3,21 +3,20 @@ const buttons = document.querySelectorAll('.manual-btn');
 const totalSlides = buttons.length;
 let currentIndex = 0;
 let autoplayTimer = null;
-let idleTime = 3000; // 3 segundos sem interação para começar autoplay
+let idleTime = 5000; 
 
-// Função para mostrar slide
 function showSlide(index) {
   slides.style.transform = `translateX(-${index * (100 / totalSlides)}%)`;
   currentIndex = index;
 }
 
-// Função de autoplay
+
 function startAutoplay() {
   stopAutoplay();
   autoplayTimer = setInterval(() => {
     currentIndex = (currentIndex + 1) % totalSlides;
     showSlide(currentIndex);
-  }, 2000); // muda a cada 2s
+  }, 5000); 
 }
 
 function stopAutoplay() {
