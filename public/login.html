@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login / Cadastro - Creativepik</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <!-- LOGIN / CADASTRO -->
+  <div class="login-container">
+    <div class="form-wrapper">
+
+      <!-- LOGIN -->
+      <form class="form login-form">
+        <h2>Entrar</h2>
+        <div class="input-group">
+          <i class="fa fa-envelope"></i>
+          <input type="email" placeholder="Email" required>
+        </div>
+        <div class="input-group">
+          <i class="fa fa-lock"></i>
+          <input type="password" placeholder="Senha" required>
+        </div>
+        <button type="submit" class="form-btn">Entrar</button>
+        <p class="toggle-text">Não tem uma conta? <span id="show-register">Cadastre-se</span></p>
+      </form>
+
+      <!-- CADASTRO -->
+      <form class="form register-form">
+        <h2>Cadastro</h2>
+        <div class="input-group">
+          <i class="fa fa-user"></i>
+          <input type="text" placeholder="Nome" required>
+        </div>
+        <div class="input-group">
+          <i class="fa fa-envelope"></i>
+          <input type="email" placeholder="Email" required>
+        </div>
+        <div class="input-group">
+          <i class="fa fa-lock"></i>
+          <input type="password" placeholder="Senha" required>
+        </div>
+        <button type="submit" class="form-btn">Cadastrar</button>
+        <p class="toggle-text">Já tem uma conta? <span id="show-login">Entrar</span></p>
+      </form>
+
+    </div>
+  </div>
+
+  <script src="assets/js/menu.js"></script>
+</body>
+</html>
