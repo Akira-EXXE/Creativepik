@@ -1,0 +1,5 @@
+DOCUMENTAÇÃO - https://pixabay.com/api/docs/
+
+COMO CONSEGUIR A PIXABAY API KEY - https://www.youtube.com/watch?v=_G2VK_wbHlM
+
+COMO USAR A API PIXABAY NO SEU SITE - https://www.youtube.com/watch?v=U8OaTf_yNHo

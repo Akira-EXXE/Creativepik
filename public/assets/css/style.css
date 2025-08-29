@@ -73,6 +73,10 @@ nav {
     margin-left: 0;
     opacity: 0;
   }
+
+  .slider{
+    display: none;
+  }
   .mobile-menu {
     display: block;
   }
@@ -228,6 +232,55 @@ nav {
   z-index: 1;
 }
 
+/* CONTATO */
+.contato-container{
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ffffff;
+  font-family: 'Poppins', sans-serif;
+}
+
+.contato-wrapper{
+  background: #ffffff;
+  border-radius: 10px;
+  width: 500px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+  padding: 50px 30px;
+  position: relative;
+  overflow: hidden;
+}
+
+.contato-h2{
+  text-align: center;
+  color: #ff7220;
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.contato-btn{
+    background: #ff7220;
+  color: #ffffff;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.input-bigtext{
+ width: 300px;
+  padding: 40px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+}
 
 
 /* LOGIN / CADASTRO */
@@ -270,7 +323,7 @@ nav {
   transform: translateY(0);
 }
 
-.form h2 {
+.h2 {
   text-align: center;
   color: #ff7220;
   margin-bottom: 15px;
