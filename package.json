@@ -2,7 +2,7 @@
   "name": "Creativepik",
   "version": "1.0.0",
   "description": "Site para o TCC",
-  "main": "public/index.json",
+  "main": "public/index.html",
   "type": "module",
   "scripts": {
     "start": "node .",
