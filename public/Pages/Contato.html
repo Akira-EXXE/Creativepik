@@ -63,31 +63,49 @@
 
 <!-- INICIO CONTATO -->
 <div class="contato-container">
+
+    <!-- (FORMULÁRIO) -->
     <div class="contato-wrapper">
-
-        <form class="contato-form">
+        <form class="contato-form" action="https://formspree.io/f/xovnbvoz" method="POST">
             <h2 class="contato-h2">Nos mande uma mensagem!</h2>
-        <div class="input-contato">
-             <input class="input-text" type="text" placeholder="Nome Completo" required>
-        </div>
-          <div class="input-contato">
-             <input class="input-text" type="text" placeholder="Assunto" required>
-        </div>
-        <div class="input-contato">
-             <input class="input-text" type="email" placeholder="E-mail" required>
-        </div>
-        <div class="input-contato">
-             <input class="input-text input-bigtext" type="text" placeholder="Mensagem" required>
-        </div>
-         <button type="submit" class="contato-btn">Enviar</button>
-        </form>
+            
+            <div class="input-contato">
+                <input class="input-text" type="text" placeholder="Nome Completo" required>
+            </div>
+            <div class="input-contato">
+                <input class="input-text" type="text" placeholder="Assunto" required>
+            </div>
+            <div class="input-contato">
+                <input class="input-text" type="email" placeholder="E-mail" required>
+            </div>
+            <div class="input-contato">
+                <textarea class="input-text input-bigtext" placeholder="Mensagem" required></textarea>
+            </div>
+            
+             <input type="hidden" name="_replyto" value="isis.passos10@gmail.com">
 
+            <button type="submit" class="contato-btn">Enviar</button>
+        </form>
     </div>
 
-    <div class="image-contato">
-      <img src="../assets/img/contato.jpg" alt="">
+  
+    <div class="contato-right">
+
+        <!-- INFORMAÇÕES DE CONTATO -->
+        <div class="contato-info">
+            <h3>Informações de Contato</h3>
+            <p><strong>E-mail:</strong> contato@creativepik.com</p>
+            <p><strong>Telefone:</strong> (11) 99999-9999</p>
+            <p><strong>Endereço:</strong> Av. Criatividade, 123 - São Paulo/SP</p>
+        </div>
+
+        <!-- IMAGEM -->
+        <div class="image-contato">
+          <img src="../assets/img/contato.jpg" alt="Imagem ilustrativa de contato">
+        </div>
     </div>
 </div>
+<!-- FIM CONTATO -->
 
         
 
@@ -124,8 +142,9 @@
     <p>&copy; 2025 Creativepik - Todos os direitos reservados.</p>
   </div>
 </footer>
-    <script src="assets/js/mobile-navbar.js"></script>
-    <script src="assets/js/scroll.js"></script>
-    <script src="assets/js/menu.js"></script>
+    <script src="../assets/js/mobile-navbar.js"></script>
+    <script src="../assets/js/scroll.js"></script>
+    <script src="../assets/js/menu.js"></script>
+     <script src="../assets/js/email.js"></script>
 </body>
 </html>

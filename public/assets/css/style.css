@@ -262,82 +262,119 @@ nav {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   background: #ffffff;
   font-family: 'Poppins', sans-serif;
-  gap: 50px;
+  gap: 60px;
+  padding: 50px;
 }
 
-.image-contato{
-  width: 50%;
-  height: 50%;
-  margin-bottom: 100px;
-}
-
-.image-contato img{
-  object-fit: fill;
-}
-
+/* FORMULÁRIO (lado esquerdo) */
 .contato-wrapper{
   background: #ffffff;
-  border-radius: 10px;
-  width: 500px;
-  height: 700px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-  padding: 70px 50px;
-  position: relative;
-  overflow: hidden;
+  border-radius: 12px;
+  width: 450px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  padding: 40px 35px;
 }
 
 .contato-h2{
   text-align: center;
   color: #ff7220;
-  margin-bottom: 15px;
-  font-size: 30px;
-}
-
-.contato-btn{
-  background: #ff7220;
-  color: #ffffff;
-  border: none;
-
-  padding: 20px;
-  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 26px;
   font-weight: 600;
-  font-size: 16px;
-  cursor: pointer;
-  transition: 0.3s;
-  
-}
-.input-contato{
- position: relative;
-  width: 100%;
 }
 
 .contato-form{
-    display: flex;
+  display: flex;
   flex-direction: column;
-  gap: 30px;
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  gap: 18px;
 }
 
 .input-text{
   width: 100%;
-  padding: 10px 10px 10px 20px;
+  padding: 14px 16px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 8px;
   outline: none;
-  box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
-  font-size: 16px;
+  font-size: 15px;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
 }
-.input-contato input:focus {
+
+.input-text:focus {
   border-color: #ff7220;
+
 }
 
 .input-bigtext{
-padding: 10px 10px 45px 20px;
+  height: 120px;
+  resize: none;
 }
+
+/* BOTÃO */
+.contato-btn{
+  background: linear-gradient(135deg, #ff7220, #e65c00);
+  color: #ffffff;
+  border: none;
+  padding: 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  
+}
+
+.contato-btn:hover {
+  transform: scale(1.03);
+  background: linear-gradient(135deg, #e65c00, #cc5200);
+}
+
+
+.contato-right{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+  width: 400px;
+}
+
+.image-contato{
+  width: 100%;
+}
+
+.image-contato img{
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+/* INFORMAÇÕES DE CONTATO */
+.contato-info {
+  background: #ffff;
+  border-radius: 12px;
+  padding: 25px 30px;
+  width: 100%;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+  font-size: 15px;
+  color: #333;
+}
+
+.contato-info h3 {
+  color: #ff7220;
+  margin-bottom: 12px;
+  font-size: 20px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.contato-info p {
+  margin: 8px 0;
+  line-height: 1.6;
+}
+
 
 
 /* LOGIN / CADASTRO */
