@@ -1,46 +1,97 @@
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-CREATE TABLE `usuario` (
-  `id` int PRIMARY KEY AUTO_INCREMENT,
-  `tipo` ENUM('normal', 'admin') DEFAULT 'normal',
-  `nome` varchar(255) DEFAULT NULL,
-  `email` varchar(100) UNIQUE,
-  `senha` varchar(100) NOT NULL,
-  `data_criacao` datetime
+-- Tabela Tipo_Usuario
+CREATE TABLE Tipo_Usuario (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    descricao VARCHAR(20) NOT NULL
 ) ENGINE=InnoDB;
 
-
---
--- Estrutura para tabela `Imagem`
---
-
-CREATE TABLE `imagem` (
-  `id` int PRIMARY KEY AUTO_INCREMENT,
-  `titulo` varchar(100) NOT NULL,
-  `descricao` varchar(100) DEFAULT NULL,
-  `url_imagem` varchar(255),
-  `data_upload` DATETIME DEFAULT CURRENT_TIMESTAMP,
-  `usuario_fk` int,
-  CONSTRAINT fk_usuario_id FOREIGN KEY (usuario_fk) REFERENCES usuario (id)
+-- Tabela Usuario
+CREATE TABLE Usuario (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    senha VARCHAR(100) NOT NULL,
+    telefone VARCHAR(50),
+    data_criacao DATE NOT NULL,
+    fk_Tipo_id INT NOT NULL,
+    FOREIGN KEY (fk_Tipo_id) REFERENCES Tipo_Usuario(id)
 ) ENGINE=InnoDB;
 
-
-
-CREATE TABLE `categoria` (
-  `id` int PRIMARY KEY AUTO_INCREMENT,
-  `nome` varchar(255) NOT NULL
+-- Tabela Categoria
+CREATE TABLE Categoria (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL
 ) ENGINE=InnoDB;
 
-
-CREATE TABLE `imagem_categoria` (
-  `id_imagem` int,
-  `id_categoria` int,
-   CONSTRAINT fk_imagem_id FOREIGN KEY (`id_imagem`) REFERENCES imagem (id),
-   CONSTRAINT id_categoria FOREIGN KEY (`id_categoria`) REFERENCES categoria (id)
+-- Tabela Imagem
+CREATE TABLE Imagem (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    data_criacao DATE NOT NULL,
+    titulo VARCHAR(100) NOT NULL,
+    descricao TEXT,
+    url VARCHAR(250),
+    fk_Usuario_id INT NOT NULL,
+    FOREIGN KEY (fk_Usuario_id) REFERENCES Usuario(id)
 ) ENGINE=InnoDB;
 
+-- Tabela Categoria_Imagem (Relacionamento N:N entre Categoria e Imagem)
+CREATE TABLE Categoria_Imagem (
+    fk_Categoria_id INT NOT NULL,
+    fk_Imagem_id INT NOT NULL,
+    PRIMARY KEY (fk_Categoria_id, fk_Imagem_id),
+    FOREIGN KEY (fk_Categoria_id) REFERENCES Categoria(id),
+    FOREIGN KEY (fk_Imagem_id) REFERENCES Imagem(id)
+) ENGINE=InnoDB;
 
+-- Tabela Licenca
+CREATE TABLE Licenca (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    descricao TEXT
+) ENGINE=InnoDB;
 
+-- Tabela Licenca_Imagem (Relacionamento N:N entre Licenca e Imagem)
+CREATE TABLE Licenca_Imagem (
+    fk_Licenca_id INT NOT NULL,
+    fk_Imagem_id INT NOT NULL,
+    PRIMARY KEY (fk_Licenca_id, fk_Imagem_id),
+    FOREIGN KEY (fk_Licenca_id) REFERENCES Licenca(id),
+    FOREIGN KEY (fk_Imagem_id) REFERENCES Imagem(id)
+) ENGINE=InnoDB;
+
+-- Tabela Tipo_Pagamento
+CREATE TABLE Tipo_Pagamento (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL
+) ENGINE=InnoDB;
+
+-- Tabela Plano
+CREATE TABLE Plano (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    duracao DATETIME NOT NULL,
+    preco DOUBLE NOT NULL
+) ENGINE=InnoDB;
+
+-- Tabela Pagamento
+CREATE TABLE Pagamento (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    fk_Usuario_id INT NOT NULL,
+    valor DOUBLE NOT NULL,
+    status INT NOT NULL,
+    data_pagamento DATETIME,
+    fk_Tipo_Pagamento_id INT NOT NULL,
+    fk_Plano_id INT NOT NULL,
+    FOREIGN KEY (fk_Usuario_id) REFERENCES Usuario(id),
+    FOREIGN KEY (fk_Tipo_Pagamento_id) REFERENCES Tipo_Pagamento(id),
+    FOREIGN KEY (fk_Plano_id) REFERENCES Plano(id)
+) ENGINE=InnoDB;
+
+-- Tabela Favoritos (Relacionamento 0..1 entre Usuario e Imagem)
+CREATE TABLE Favoritos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    fk_Imagem_id INT NOT NULL,
+    fk_Usuario_id INT NOT NULL,
+    FOREIGN KEY (fk_Imagem_id) REFERENCES Imagem(id),
+    FOREIGN KEY (fk_Usuario_id) REFERENCES Usuario(id)
+) ENGINE=InnoDB;

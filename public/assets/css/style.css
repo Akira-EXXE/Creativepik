@@ -234,16 +234,31 @@ nav {
 
 /* SOBRE */
 
+.Sobre{
+   display: flex;
+  gap: 20px;
+  padding: 20px;
+  margin: 20px auto 10px auto; 
+  max-width: 1000px;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+
+}
+
 .divSobre {
   display: flex;
   gap: 40px;
   padding: 20px;
-  margin: 40px auto 80px auto; /* margem extra embaixo */
+  margin: 30px auto 70px auto; 
   max-width: 1000px;
   align-items: center;
   justify-content: center;
 }
 
+.Sobrep{
+  margin: 30px;
+}
 .divSobre img {
   max-width: 100%;
   height: auto;
