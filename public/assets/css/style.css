@@ -231,29 +231,31 @@ nav {
   transform: translateY(-50%); 
   z-index: 1;
 }
-/* 
-.divSobre{
+
+/* SOBRE */
+
+.divSobre {
   display: flex;
-  flex-direction: row;
-  padding: 10px;
-  margin: 10px;
-  margin-top: 50px;
-  justify-self: center;
-  border: 10px;
-  height: 50%;
-  width: 50%;
-  gap: 50px;
-  margin-bottom: 5%;
+  gap: 40px;
+  padding: 20px;
+  margin: 40px auto 80px auto; /* margem extra embaixo */
+  max-width: 1000px;
+  align-items: center;
+  justify-content: center;
 }
 
-.divSobreDiv{
-  display: flex;
-  flex-direction: column;
-  margin: 10px;
-  height: 50%;
-  width: 50%;
-  justify-content: center;
-} */
+.divSobre img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 2px;
+}
+
+.divSobre div {
+  flex: 1;
+  text-align: center; /* centraliza títulos e parágrafos */
+}
+
+
 
 /* CONTATO */
 .contato-container{
