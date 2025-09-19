@@ -263,8 +263,8 @@ nav {
 .divSobre img {
   max-width: 100%;
   height: auto;
-  min-height: 400px; /* ajuste o valor como quiser */
-  object-fit: cover; /* corta se precisar para preencher */
+  min-height: 400px; 
+  object-fit: cover; 
   border-radius: 5px;
 }
 
@@ -279,14 +279,15 @@ nav {
   display: flex;
   gap: 40px;
   padding: 20px;
-  margin: 30px auto 70px auto; 
+  margin: 30px auto 20px auto; 
   max-width: 1000px;
   align-items: center;
   justify-content: center;
 }
 
 .Direitos{
-     display: flex;
+  display: flex;
+  flex-direction: column ;
   gap: 20px;
   padding: 20px;
   margin: 20px auto 10px auto; 
