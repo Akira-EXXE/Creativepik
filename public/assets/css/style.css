@@ -259,13 +259,57 @@ nav {
 .Sobrep{
   margin: 30px;
 }
+
 .divSobre img {
   max-width: 100%;
   height: auto;
-  border-radius: 2px;
+  min-height: 400px; /* ajuste o valor como quiser */
+  object-fit: cover; /* corta se precisar para preencher */
+  border-radius: 5px;
 }
 
+
 .divSobre div {
+  flex: 1;
+  text-align: center; /* centraliza títulos e parágrafos */
+}
+
+/* Direitos */
+.divDireitos {
+  display: flex;
+  gap: 40px;
+  padding: 20px;
+  margin: 30px auto 70px auto; 
+  max-width: 1000px;
+  align-items: center;
+  justify-content: center;
+}
+
+.Direitos{
+     display: flex;
+  gap: 20px;
+  padding: 20px;
+  margin: 20px auto 10px auto; 
+  max-width: 1000px;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.Direitosp{
+  margin: 30px;
+}
+
+.divDireitos img {
+  max-width: 100%;
+  height: auto;
+  min-height: 400px; /* ajuste o valor como quiser */
+  object-fit: cover; /* corta se precisar para preencher */
+  border-radius: 5px;
+}
+
+
+.divDireitosdiv {
   flex: 1;
   text-align: center; /* centraliza títulos e parágrafos */
 }

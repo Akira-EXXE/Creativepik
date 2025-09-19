@@ -12,6 +12,7 @@ CREATE TABLE Usuario (
     senha VARCHAR(100) NOT NULL,
     telefone VARCHAR(50),
     data_criacao DATE NOT NULL,
+    foto VARCHAR(100)
     fk_Tipo_id INT NOT NULL,
     FOREIGN KEY (fk_Tipo_id) REFERENCES Tipo_Usuario(id)
 ) ENGINE=InnoDB;
@@ -19,7 +20,8 @@ CREATE TABLE Usuario (
 -- Tabela Categoria
 CREATE TABLE Categoria (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(100) NOT NULL
+    nome VARCHAR(100) NOT NULL,
+    logo VARCHAR(100)
 ) ENGINE=InnoDB;
 
 -- Tabela Imagem
@@ -46,7 +48,8 @@ CREATE TABLE Categoria_Imagem (
 CREATE TABLE Licenca (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(255) NOT NULL,
-    descricao TEXT
+    descricao TEXT,
+     logo VARCHAR(100)
 ) ENGINE=InnoDB;
 
 -- Tabela Licenca_Imagem (Relacionamento N:N entre Licenca e Imagem)
