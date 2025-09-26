@@ -444,6 +444,8 @@ nav {
   gap: 50px;
   flex-wrap: wrap;
   margin: 40px auto;
+  margin-top: 5%;
+  margin-bottom: 5%;
   max-width: 1200px;
   padding: 20px;
 }
