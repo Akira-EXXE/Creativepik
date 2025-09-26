@@ -331,7 +331,7 @@ nav {
   padding: 50px;
 }
 
-/* FORMULÁRIO (lado esquerdo) */
+/* FORMULÁRIO */
 .contato-wrapper{
   background: #ffffff;
   border-radius: 12px;
@@ -436,6 +436,74 @@ nav {
   margin: 8px 0;
   line-height: 1.6;
 }
+
+/* ASSINATURAS */
+.planos-container {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  flex-wrap: wrap;
+  margin: 40px auto;
+  max-width: 1200px;
+  padding: 20px;
+}
+
+.plano {
+  background: #fff;
+  border-radius: 15px;
+  padding: 30px 25px;
+  width: 300px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.plano:hover {
+  transform: translateY(-8px);
+}
+
+.plano h3 {
+  font-size: 22px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.plano .preco {
+  font-size: 28px;
+  font-weight: 600;
+  color: #ff7220;
+  margin: 15px 0;
+}
+
+.plano ul {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+  color: #555;
+  text-align: left;
+}
+
+.plano ul li {
+  margin-bottom: 10px;
+}
+
+.plano button {
+  background: #ff7220;
+  color: white;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.plano button:hover {
+  background: #fd5e02;
+}
+
 
 
 
