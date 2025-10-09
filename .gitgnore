@@ -1,0 +1,17 @@
+# Dependências
+node_modules
+
+# Variáveis de ambiente
+.env
+
+# Logs e arquivos temporários
+*.log
+tmp/
+dist/
+build/
+
+# Sistema operacional (Windows e Mac)
+.DS_Store
+Thumbs.db
+
+src/database
