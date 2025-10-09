@@ -413,6 +413,16 @@ nav {
   object-fit: cover;
 }
 
+/* MENSAGEM DE ERRO */
+#msgError{
+  text-align: center;
+  color: #ff0000;
+  background-color: #ffbbbb;
+  padding: 10px;
+  border-radius: 4px;
+  display: none;
+}
+
 /* INFORMAÇÕES DE CONTATO */
 .contato-info {
   background: #ffff;
