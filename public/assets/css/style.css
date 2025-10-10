@@ -479,6 +479,75 @@ nav#menu_logado {
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* PERFIL */
+.perfil-dropdown {
+  position: relative;
+}
+
+.perfil-dropdown .avatar {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.perfil-dropdown .dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  background: #fff;
+  min-width: 220px;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+  padding: 15px;
+  z-index: 100;
+}
+
+.perfil-dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.perfil-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.perfil-header p {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.dropdown-content ul {
+  list-style: none;
+  margin-top: 10px;
+  padding: 0;
+}
+
+.dropdown-content ul li {
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.dropdown-content ul li:last-child {
+  border-bottom: none;
+}
+
+.dropdown-content ul li a {
+  text-decoration: none;
+  color: #333;
+  font-size: 0.95rem;
+  display: block;
+}
+
+.dropdown-content ul li a:hover {
+  color: #ff7220;
+}
+
+
+
 /* INFORMAÇÕES DE CONTATO */
 .contato-info {
   background: #ffff;

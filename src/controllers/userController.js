@@ -6,14 +6,14 @@ import bcrypt from "bcryptjs";
  */
 export async function register(req, res) {
   try {
-    const { nome, email, senha } = req.body;
+    const { nome, email, senha, foto } = req.body; // foto opcional
 
     // Validação de campos obrigatórios
     if (!nome || !email || !senha) {
       return res.status(400).json({ error: "Todos os campos são obrigatórios." });
     }
 
-    console.log("Dados recebidos para registro:", { nome, email, senha });
+    console.log("Dados recebidos para registro:", { nome, email, senha, foto });
 
     // Verifica se já existe usuário com o mesmo email
     const [existingUsers] = await db.query(
@@ -28,21 +28,27 @@ export async function register(req, res) {
     // Criptografa a senha
     const hash = await bcrypt.hash(senha, 10);
 
+    // Define foto padrão caso não seja fornecida
+    const avatar = foto || "avatar.png";
+
     // Insere o usuário no banco
     const insertQuery = `
-      INSERT INTO Usuario (nome, email, senha, data_criacao, fk_Tipo_id)
-      VALUES (?, ?, ?, NOW(), 2)
+      INSERT INTO Usuario (nome, email, senha, foto, data_criacao, fk_Tipo_id)
+      VALUES (?, ?, ?, ?, NOW(), 2)
     `;
 
-    const [result] = await db.query(insertQuery, [nome, email, hash]);
+    const [result] = await db.query(insertQuery, [nome, email, hash, avatar]);
 
     console.log("Usuário inserido com sucesso, ID:", result.insertId);
 
-    res.status(201).json({ message: "Usuário cadastrado com sucesso!", userId: result.insertId });
+    res.status(201).json({
+      message: "Usuário cadastrado com sucesso!",
+      userId: result.insertId,
+      usuario: { id: result.insertId, nome, email, foto: avatar }
+    });
   } catch (err) {
     console.error("Erro no registro:", err);
 
-    // Caso seja erro de foreign key ou coluna inexistente, retorne mensagem clara
     if (err.code === "ER_NO_REFERENCED_ROW_2" || err.code === "ER_NO_SUCH_TABLE") {
       return res.status(500).json({ error: "Erro no banco de dados: tabela ou chave estrangeira inválida." });
     }
@@ -58,15 +64,17 @@ export async function login(req, res) {
   try {
     const { email, senha } = req.body;
 
-    // Validação de campos obrigatórios
     if (!email || !senha) {
       return res.status(400).json({ error: "Email e senha são obrigatórios." });
     }
 
     console.log("Tentativa de login:", { email });
 
-    // Busca usuário pelo email
-    const [rows] = await db.query("SELECT * FROM Usuario WHERE email = ?", [email]);
+    // Busca usuário pelo email, retornando apenas campos necessários
+    const [rows] = await db.query(
+      "SELECT id, nome, email, senha, foto FROM Usuario WHERE email = ?",
+      [email]
+    );
 
     if (rows.length === 0) {
       return res.status(401).json({ error: "Usuário não encontrado." });

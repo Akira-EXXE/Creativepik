@@ -11,26 +11,29 @@
 </head>
 <body>
   <!-- INICIO NAV -->
-  <header>
-      <nav id="menu_defalt">
-        <a class="logo" href="index.html">CREATIVEPIK</a>
+  <!-- INICIO NAV -->
+<header>
+  <!-- MENU PADRÃO -->
+  <nav id="menu_defalt">
+    <a class="logo" href="index.html">CREATIVEPIK</a>
 
-        <div class="mobile-menu">
-          <div class="line1"></div>
-          <div class="line2"></div>
-          <div class="line3"></div>
-        </div>
+    <div class="mobile-menu">
+      <div class="line1"></div>
+      <div class="line2"></div>
+      <div class="line3"></div>
+    </div>
 
-        <ul class="nav-list">
-          <li><a href="#">Explorar</a></li>
-          <li><a href="Pages/Direitos.html">Direitos Autorais</a></li>
-          <li><a href="Pages/Sobre.html">Sobre</a></li>
-          <li><a href="Pages/Contato.html">Contato</a></li>
-           <li><a href="login.html">Entrar/Cadastrar</a></li>
-        </ul>
-      </nav>
+    <ul class="nav-list">
+      <li><a href="#">Explorar</a></li>
+      <li><a href="Pages/Direitos.html">Direitos Autorais</a></li>
+      <li><a href="Pages/Sobre.html">Sobre</a></li>
+      <li><a href="Pages/Contato.html">Contato</a></li>
+      <li><a href="login.html">Entrar/Cadastrar</a></li>
+    </ul>
+  </nav>
 
-       <nav id="menu_logado" style="display: none;">
+  <!-- MENU LOGADO -->
+  <nav id="menu_logado" style="display: none;">
     <a class="logo" href="#">CREATIVEPIK</a>
 
     <div class="mobile-menu">
@@ -46,12 +49,32 @@
       <li><a href="Pages/Assinaturas.html">Assinaturas</a></li>
       <li><a href="Pages/Contato.html">Contato</a></li>
       <li><a href="#">Carregar</a></li>
-      <li><a href="#">Perfil</a></li>
-      <li><a>Sair</a></li>
+
+      <!-- PERFIL -->
+      <li class="perfil-dropdown">
+        <a href="#" id="perfil-btn">
+          <img src="assets/img/avatar.png" alt="Avatar" class="avatar">
+        </a>
+        <div class="dropdown-content" id="perfil-menu">
+          <div class="perfil-header">
+            <img src="assets/img/avatar.png" alt="Avatar" class="avatar">
+            <div>
+              <p><strong id="perfil-nome">Usuário</strong></p>
+            </div>
+          </div>
+          <hr>
+          <ul>
+            <li><a href="#">Adicionar conta</a></li>
+            <li><a href="logout.html">Sair</a></li>
+          </ul>
+        </div>
+      </li>
     </ul>
   </nav>
-    </header>
+</header>
     <!-- FIM NAV -->
+
+    
 <main id="Conteudo">
 <!-- CARROSSEL -->
     <div class="slider">
