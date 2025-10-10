@@ -1,51 +1,35 @@
-let usuarioLogado = false;
 
-const menuDefault = document.getElementById("menu_defalt");
-const menuLogado = document.getElementById("menu_logado");
+const loginForm = document.querySelector('.login-form');
+const registerForm = document.querySelector('.register-form');
+const showRegisterBtn = document.getElementById('show-cadastro');
+const showLoginBtn = document.getElementById('show-login');
 
-function alternarMenu() {
-  if (usuarioLogado) {
-    menuDefault.style.display = "none";
-    menuLogado.style.display = "block";
-  } else {
-    menuDefault.style.display = "block";
-    menuLogado.style.display = "none";
+function toggleForm(tipo) {
+  if (!loginForm || !registerForm) return;
+
+  if (tipo === 'cadastro') {
+    loginForm.classList.remove('show');
+    registerForm.style.display = 'flex';
+    setTimeout(() => registerForm.classList.add('show'), 50);
+    
+    loginForm.style.display = 'none';
+  } else if (tipo === 'login') {
+    registerForm.classList.remove('show');
+    loginForm.style.display = 'flex';
+    setTimeout(() => loginForm.classList.add('show'), 50);
+    
+    registerForm.style.display = 'none';
   }
 }
 
-const showRegister = document.getElementById('show-register');
-const showLogin = document.getElementById('show-login');
-const loginForm = document.querySelector('.login-form');
-const registerForm = document.querySelector('.register-form');
+showRegisterBtn?.addEventListener('click', () => toggleForm('cadastro'));
+showLoginBtn?.addEventListener('click', () => toggleForm('login'));
 
-showRegister.addEventListener('click', () => {
-  loginForm.classList.remove('show');
-  loginForm.style.display = 'none';
-  registerForm.style.display = 'flex';
-  setTimeout(() => registerForm.classList.add('show'), 10);
-});
 
-showLogin.addEventListener('click', () => {
-  registerForm.classList.remove('show');
-  registerForm.style.display = 'none';
-  loginForm.style.display = 'flex';
-  setTimeout(() => loginForm.classList.add('show'), 10);
-});
-
-loginForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  usuarioLogado = true;
-  alternarMenu();
-  window.location.href = "public/index.html";
-});
-
-registerForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  usuarioLogado = true;
-  alternarMenu();
-  window.location.href = "public/index.html";
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-  alternarMenu();
+document.addEventListener('DOMContentLoaded', () => {
+  if (loginForm && registerForm) {
+    loginForm.style.display = 'flex';
+    loginForm.classList.add('show');
+    registerForm.style.display = 'none';
+  }
 });

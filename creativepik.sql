@@ -12,7 +12,7 @@ CREATE TABLE Usuario (
     senha VARCHAR(100) NOT NULL,
     telefone VARCHAR(50),
     data_criacao DATE NOT NULL,
-    foto VARCHAR(100)
+    foto VARCHAR(100),
     fk_Tipo_id INT NOT NULL,
     FOREIGN KEY (fk_Tipo_id) REFERENCES Tipo_Usuario(id)
 ) ENGINE=InnoDB;

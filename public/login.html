@@ -3,50 +3,52 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Creativepik</title>
+  <title>Creativepik - Login</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="icon" href="assets/img/CREATIVEPIKtrans.ico" type="image/x-icon">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
-  <!-- LOGIN / CADASTRO -->
   <div class="login-container">
     <div class="form-wrapper">
 
+      <div id="msgError" style="display:none;"></div>
+      
       <!-- LOGIN -->
-      <form class="form login-form">
-        <h2>Entrar</h2>
-
-        <div id="msgError"></div>
-        
+      <form id="formLogin" class="form login-form show">
+        <h2 class="h2">Entrar</h2>
         <div class="input-group">
           <i class="fa fa-envelope"></i>
-          <input type="email" placeholder="Email" required>
+          <input name="email" type="email" placeholder="Email" required>
         </div>
         <div class="input-group">
           <i class="fa fa-lock"></i>
-          <input type="password" placeholder="Senha" required>
+          <input name="senha" type="password" placeholder="Senha" required>
         </div>
         <button type="submit" class="form-btn">Entrar</button>
-        <p class="toggle-text">Não tem uma conta? <span id="show-register">Cadastre-se</span></p>
+        <p class="toggle-text">Não tem uma conta? <span id="show-cadastro">Cadastre-se</span></p>
       </form>
 
       <!-- CADASTRO -->
-      <form class="form register-form">
+      <form id="formCadastro" class="form register-form">
         <h2 class="h2">Cadastro</h2>
         <div class="input-group">
           <i class="fa fa-user"></i>
-          <input type="text" placeholder="Nome" required>
+          <input name="nome" type="text" placeholder="Nome" required>
         </div>
         <div class="input-group">
           <i class="fa fa-envelope"></i>
-          <input type="email" placeholder="Email" required>
+          <input name="email" type="email" placeholder="Email" required>
+        </div>
+          <div class="input-group">
+          <i class="fa fa-lock"></i>
+          <input name="telefone" type="tel" placeholder="Telefone" required>
         </div>
         <div class="input-group">
           <i class="fa fa-lock"></i>
-          <input type="password" placeholder="Senha" required>
+          <input name="senha" type="password" placeholder="Senha" required>
         </div>
         <button type="submit" class="form-btn">Cadastrar</button>
         <p class="toggle-text">Já tem uma conta? <span id="show-login">Entrar</span></p>
@@ -55,6 +57,70 @@
     </div>
   </div>
 
-  <script src="assets/js/menu.js"></script>
+  <script>
+    const formLogin = document.getElementById('formLogin');
+    const formCadastro = document.getElementById('formCadastro');
+    const msgError = document.getElementById('msgError');
+
+    // Alternância login/cadastro
+    document.getElementById('show-cadastro').onclick = () => {
+      formLogin.classList.remove('show');
+      formCadastro.classList.add('show');
+      msgError.style.display = "none";
+    };
+    document.getElementById('show-login').onclick = () => {
+      formCadastro.classList.remove('show');
+      formLogin.classList.add('show');
+      msgError.style.display = "none";
+    };
+
+    const enviarDados = async (url, dados) => {
+      try {
+        const res = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(dados)
+        });
+        const json = await res.json();
+        msgError.style.display = "block";
+        if (res.ok) {
+          msgError.style.color = "green";
+          msgError.innerText = json.message || "Sucesso!";
+          return true;
+        } else {
+          msgError.style.color = "red";
+          msgError.innerText = json.error || "Erro!";
+          return false;
+        }
+      } catch (err) {
+        msgError.style.display = "block";
+        msgError.style.color = "red";
+        msgError.innerText = "Erro no servidor.";
+        return false;
+      }
+    };
+
+    formCadastro.onsubmit = async (e) => {
+      e.preventDefault();
+      const dados = {
+        nome: formCadastro.nome.value,
+        email: formCadastro.email.value,
+        senha: formCadastro.senha.value
+      };
+      const sucesso = await enviarDados('/api/users/register', dados);
+      if(sucesso) formCadastro.reset();
+    };
+
+    formLogin.onsubmit = async (e) => {
+      e.preventDefault();
+      const dados = {
+        email: formLogin.email.value,
+        senha: formLogin.senha.value
+      };
+      const sucesso = await enviarDados('/api/users/login', dados);
+      if(sucesso) formLogin.reset();
+    };
+  </script>
+
 </body>
 </html>

@@ -14,31 +14,56 @@ a:hover {
   opacity: 0.7;
 }
 
+/* === NAV PRINCIPAL (para #menu_defalt e #menu_logado) === */
+nav#menu_defalt,
+nav#menu_logado {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ff7220;
+  height: 80px;
+  padding: 0 100px;
+  font-family: system-ui, -apple-system, Helvetica, Arial, sans-serif;
+  transition: all 0.3s ease;
+}
+
+/* Esconde via classe controlada pelo JS */
+.hidden {
+  display: none !important;
+}
+
+/* === LOGO === */
 .logo {
-  font-size: 24px;
+  font-size: 26px; /* letras maiores */
   text-transform: uppercase;
   letter-spacing: 4px;
+  color: #fff;
+  font-weight: 700;
 }
 
-nav {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  font-family: system-ui, -apple-system, Helvetica, Arial, sans-serif;
-  background: #ff7220;
-  height: 8vh;
-}
-
+/* === LISTA PRINCIPAL === */
 .nav-list {
   list-style: none;
   display: flex;
+  align-items: center;
+  gap: 70px; /* espaço entre itens */
+  margin-left: auto;
 }
 
-.nav-list li {
-  letter-spacing: 3px;
-  margin-left: 32px;
+.nav-list li a {
+  font-size: 18px; /* aumentei */
+  letter-spacing: 1px;
+  font-weight: 600;
+  color: #fff;
+  transition: color 0.3s ease;
 }
 
+.nav-list li a:hover {
+  color: #f0f0f0;
+  opacity: 0.9;
+}
+
+/* === MENU MOBILE === */
 .mobile-menu {
   display: none;
   cursor: pointer;
@@ -46,46 +71,53 @@ nav {
 
 .mobile-menu div {
   width: 32px;
-  height: 2px;
+  height: 3px;
   background: #fff;
-  margin: 8px;
+  margin: 6px;
   transition: 0.3s;
 }
 
+/* === RESPONSIVIDADE === */
 @media (max-width: 999px) {
   body {
     overflow-x: hidden;
   }
+
+  nav#menu_defalt,
+  nav#menu_logado {
+    padding: 0 30px;
+  }
+
   .nav-list {
     position: absolute;
-    top: 8vh;
+    top: 80px;
     right: 0;
-    width: 50vw;
-    height: 92vh;
+    width: 65vw;
+    height: calc(100vh - 80px);
     background: #ff7220;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
     transform: translateX(100%);
     transition: transform 0.3s ease-in;
+    gap: 0;
+    z-index: 1000;
   }
+
   .nav-list li {
-    margin-left: 0;
     opacity: 0;
   }
 
-  .slider{
-    display: none;
-  }
   .mobile-menu {
     display: block;
   }
+
+  .nav-list.active {
+    transform: translateX(0);
+  }
 }
 
-.nav-list.active {
-  transform: translateX(0);
-}
-
+/* === ANIMAÇÃO MENU MOBILE === */
 @keyframes navLinkFade {
   from {
     opacity: 0;
@@ -109,6 +141,10 @@ nav {
   transform: rotate(45deg) translate(-5px, -7px);
 }
 
+/* ==========================================================
+   RESTANTE DO SEU CÓDIGO MANTIDO ABAIXO
+   ========================================================== */
+
 /* CARROSSEL */
 .slider {
   margin: 0 auto;
@@ -125,7 +161,7 @@ nav {
   transition: transform 0.5s ease;
 }
 
-.slides input{
+.slides input {
   display: none;
 }
 
@@ -541,7 +577,7 @@ nav {
 }
 
 .form {
-  display: flex;
+  display: none;
   flex-direction: column;
   gap: 15px;
   transition: opacity 0.3s ease, transform 0.3s ease;
