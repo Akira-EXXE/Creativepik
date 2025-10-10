@@ -13,7 +13,7 @@ export async function register(req, res) {
       return res.status(400).json({ error: "Todos os campos são obrigatórios." });
     }
 
-    console.log("Dados recebidos para registro:", { nome, email, senha, telefone });
+    console.log("Dados recebidos para registro:", { nome, email, senha });
 
     // Verifica se já existe usuário com o mesmo email
     const [existingUsers] = await db.query(
@@ -30,7 +30,7 @@ export async function register(req, res) {
 
     // Insere o usuário no banco
     const insertQuery = `
-      INSERT INTO Usuario (nome, email, senha, telefone, data_criacao, fk_Tipo_id)
+      INSERT INTO Usuario (nome, email, senha, data_criacao, fk_Tipo_id)
       VALUES (?, ?, ?, NOW(), 2)
     `;
 

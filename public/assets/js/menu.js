@@ -1,35 +1,25 @@
-
-const loginForm = document.querySelector('.login-form');
-const registerForm = document.querySelector('.register-form');
-const showRegisterBtn = document.getElementById('show-cadastro');
-const showLoginBtn = document.getElementById('show-login');
-
-function toggleForm(tipo) {
-  if (!loginForm || !registerForm) return;
-
-  if (tipo === 'cadastro') {
-    loginForm.classList.remove('show');
-    registerForm.style.display = 'flex';
-    setTimeout(() => registerForm.classList.add('show'), 50);
-    
-    loginForm.style.display = 'none';
-  } else if (tipo === 'login') {
-    registerForm.classList.remove('show');
-    loginForm.style.display = 'flex';
-    setTimeout(() => loginForm.classList.add('show'), 50);
-    
-    registerForm.style.display = 'none';
-  }
-}
-
-showRegisterBtn?.addEventListener('click', () => toggleForm('cadastro'));
-showLoginBtn?.addEventListener('click', () => toggleForm('login'));
-
-
 document.addEventListener('DOMContentLoaded', () => {
-  if (loginForm && registerForm) {
-    loginForm.style.display = 'flex';
-    loginForm.classList.add('show');
-    registerForm.style.display = 'none';
+  const menuDefault = document.getElementById('menu_defalt');
+  const menuLogado = document.getElementById('menu_logado');
+  const usuario = JSON.parse(localStorage.getItem('usuario'));
+
+  if (usuario) {
+    // Mostra menu logado
+    if (menuLogado) menuLogado.style.display = 'flex';
+    if (menuDefault) menuDefault.style.display = 'none';
+  } else {
+    // Mostra menu padrão
+    if (menuDefault) menuDefault.style.display = 'flex';
+    if (menuLogado) menuLogado.style.display = 'none';
+  }
+
+  // Logout
+  const logoutLink = menuLogado?.querySelector('a[href="logout.html"]');
+  if (logoutLink) {
+    logoutLink.addEventListener('click', e => {
+      e.preventDefault();
+      localStorage.removeItem('usuario');
+      window.location.reload(); // recarrega para mostrar menu padrão
+    });
   }
 });

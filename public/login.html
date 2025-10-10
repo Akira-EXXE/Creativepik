@@ -13,9 +13,8 @@
 
   <div class="login-container">
     <div class="form-wrapper">
+      <div id="msgStatus" class="msg-status"></div>
 
-      <div id="msgError" style="display:none;"></div>
-      
       <!-- LOGIN -->
       <form id="formLogin" class="form login-form show">
         <h2 class="h2">Entrar</h2>
@@ -42,10 +41,6 @@
           <i class="fa fa-envelope"></i>
           <input name="email" type="email" placeholder="Email" required>
         </div>
-          <div class="input-group">
-          <i class="fa fa-lock"></i>
-          <input name="telefone" type="tel" placeholder="Telefone" required>
-        </div>
         <div class="input-group">
           <i class="fa fa-lock"></i>
           <input name="senha" type="password" placeholder="Senha" required>
@@ -60,19 +55,29 @@
   <script>
     const formLogin = document.getElementById('formLogin');
     const formCadastro = document.getElementById('formCadastro');
-    const msgError = document.getElementById('msgError');
+    const msgStatus = document.getElementById('msgStatus');
+    const showRegisterBtn = document.getElementById('show-cadastro');
+    const showLoginBtn = document.getElementById('show-login');
 
     // Alternância login/cadastro
-    document.getElementById('show-cadastro').onclick = () => {
-      formLogin.classList.remove('show');
-      formCadastro.classList.add('show');
-      msgError.style.display = "none";
+    const toggleForm = (tipo) => {
+      if (tipo === 'cadastro') {
+        formLogin.classList.remove('show');
+        formLogin.style.display = 'none';
+        formCadastro.style.display = 'flex';
+        setTimeout(() => formCadastro.classList.add('show'), 50);
+      } else {
+        formCadastro.classList.remove('show');
+        formCadastro.style.display = 'none';
+        formLogin.style.display = 'flex';
+        setTimeout(() => formLogin.classList.add('show'), 50);
+      }
+      msgStatus.style.display = 'none';
+      msgStatus.classList.remove('msg-success', 'msg-error');
     };
-    document.getElementById('show-login').onclick = () => {
-      formCadastro.classList.remove('show');
-      formLogin.classList.add('show');
-      msgError.style.display = "none";
-    };
+
+    showRegisterBtn?.addEventListener('click', () => toggleForm('cadastro'));
+    showLoginBtn?.addEventListener('click', () => toggleForm('login'));
 
     const enviarDados = async (url, dados) => {
       try {
@@ -82,45 +87,54 @@
           body: JSON.stringify(dados)
         });
         const json = await res.json();
-        msgError.style.display = "block";
+
+        msgStatus.style.display = 'block';
+
         if (res.ok) {
-          msgError.style.color = "green";
-          msgError.innerText = json.message || "Sucesso!";
+          msgStatus.classList.remove('msg-error');
+          msgStatus.classList.add('msg-success');
+          msgStatus.innerText = json.message || 'Sucesso!';
+
+          if (json.usuario) {
+            localStorage.setItem('usuario', JSON.stringify(json.usuario));
+          }
+          setTimeout(() => window.location.href = 'index.html', 1200);
           return true;
         } else {
-          msgError.style.color = "red";
-          msgError.innerText = json.error || "Erro!";
+          msgStatus.classList.remove('msg-success');
+          msgStatus.classList.add('msg-error');
+          msgStatus.innerText = json.error || 'Erro!';
           return false;
         }
       } catch (err) {
-        msgError.style.display = "block";
-        msgError.style.color = "red";
-        msgError.innerText = "Erro no servidor.";
+        msgStatus.style.display = 'block';
+        msgStatus.classList.remove('msg-success');
+        msgStatus.classList.add('msg-error');
+        msgStatus.innerText = 'Erro no servidor.';
         return false;
       }
     };
 
-    formCadastro.onsubmit = async (e) => {
-      e.preventDefault();
-      const dados = {
-        nome: formCadastro.nome.value,
-        email: formCadastro.email.value,
-        senha: formCadastro.senha.value
-      };
-      const sucesso = await enviarDados('/api/users/register', dados);
-      if(sucesso) formCadastro.reset();
-    };
 
-    formLogin.onsubmit = async (e) => {
+    formCadastro.addEventListener('submit', async (e) => {
       e.preventDefault();
       const dados = {
-        email: formLogin.email.value,
-        senha: formLogin.senha.value
+        nome: formCadastro.nome.value.trim(),
+        email: formCadastro.email.value.trim(),
+        senha: formCadastro.senha.value.trim()
       };
-      const sucesso = await enviarDados('/api/users/login', dados);
-      if(sucesso) formLogin.reset();
-    };
+      await enviarDados('/api/users/register', dados);
+    });
+
+ 
+    formLogin.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const dados = {
+        email: formLogin.email.value.trim(),
+        senha: formLogin.senha.value.trim()
+      };
+      await enviarDados('/api/users/login', dados);
+    });
   </script>
-
 </body>
 </html>
