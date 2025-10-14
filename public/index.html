@@ -10,12 +10,12 @@
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-  <!-- INICIO NAV -->
+  
   <!-- INICIO NAV -->
 <header>
   <!-- MENU PADRÃO -->
   <nav id="menu_defalt">
-    <a class="logo" href="index.html">CREATIVEPIK</a>
+    <a class="logo" href="/">CREATIVEPIK</a>
 
     <div class="mobile-menu">
       <div class="line1"></div>
@@ -24,17 +24,17 @@
     </div>
 
     <ul class="nav-list">
-      <li><a href="#">Explorar</a></li>
-      <li><a href="Pages/Direitos.html">Direitos Autorais</a></li>
-      <li><a href="Pages/Sobre.html">Sobre</a></li>
-      <li><a href="Pages/Contato.html">Contato</a></li>
-      <li><a href="login.html">Entrar/Cadastrar</a></li>
+      <li><a href="/">Explorar</a></li>
+      <li><a href="/pages/Direitos.html">Direitos Autorais</a></li>
+      <li><a href="/pages/Sobre.html">Sobre</a></li>
+      <li><a href="/pages/Contato.html">Contato</a></li>
+      <li><a href="/login.html">Entrar/Cadastrar</a></li>
     </ul>
   </nav>
 
   <!-- MENU LOGADO -->
   <nav id="menu_logado" style="display: none;">
-    <a class="logo" href="#">CREATIVEPIK</a>
+    <a class="logo" href="/">CREATIVEPIK</a>
 
     <div class="mobile-menu">
       <div class="line1"></div>
@@ -43,21 +43,21 @@
     </div>
 
     <ul class="nav-list">
-      <li><a href="#">Explorar</a></li>
-      <li><a href="Pages/Direitos.html">Direitos Autorais</a></li>
-      <li><a href="Pages/Sobre.html">Sobre</a></li>
-      <li><a href="Pages/Assinaturas.html">Assinaturas</a></li>
-      <li><a href="Pages/Contato.html">Contato</a></li>
+      <li><a href="/">Explorar</a></li>
+      <li><a href="/pages/Direitos.html">Direitos Autorais</a></li>
+      <li><a href="/pages/Sobre.html">Sobre</a></li>
+      <li><a href="/pages/Assinaturas.html">Assinaturas</a></li>
+      <li><a href="/pages/Contato.html">Contato</a></li>
       <li><a href="#">Carregar</a></li>
 
       <!-- PERFIL -->
       <li class="perfil-dropdown">
         <a href="#" id="perfil-btn">
-          <img src="assets/img/avatar.png" alt="Avatar" class="avatar">
+          <img id="avatarMenu" src="/assets/img/avatar.jpg" alt="Avatar" class="avatar">
         </a>
         <div class="dropdown-content" id="perfil-menu">
           <div class="perfil-header">
-            <img src="assets/img/avatar.png" alt="Avatar" class="avatar">
+            <img id="avatarDropdown" src="assets/img/avatar.jpg" alt="Avatar" class="avatar">
             <div>
               <p><strong id="perfil-nome">Usuário</strong></p>
             </div>
@@ -65,14 +65,15 @@
           <hr>
           <ul>
             <li><a href="#">Adicionar conta</a></li>
-            <li><a href="logout.html">Sair</a></li>
+            <li><a href="#" id="logoutBtn">Sair</a></li>
           </ul>
         </div>
       </li>
     </ul>
   </nav>
 </header>
-    <!-- FIM NAV -->
+<!-- FIM NAV -->
+
 
     
 <main id="Conteudo">
