@@ -30,8 +30,9 @@
         </ul>
       </nav>
 
-       <nav id="menu_logado" style="display: none;">
-    <a class="logo" href="../index.html">CREATIVEPIK</a>
+       <!-- MENU LOGADO -->
+  <nav id="menu_logado" style="display: none;">
+    <a class="logo" href="/">CREATIVEPIK</a>
 
     <div class="mobile-menu">
       <div class="line1"></div>
@@ -40,14 +41,32 @@
     </div>
 
     <ul class="nav-list">
-      <li><a href="#">Explorar</a></li>
+      <li><a href="/">Explorar</a></li>
       <li><a href="#">Direitos Autorais</a></li>
       <li><a href="Sobre.html">Sobre</a></li>
       <li><a href="Assinaturas.html">Assinaturas</a></li>
       <li><a href="Contato.html">Contato</a></li>
       <li><a href="#">Carregar</a></li>
-      <li><a href="#">Perfil</a></li>
-      <li><a >Sair</a></li>
+
+      <!-- PERFIL -->
+      <li class="perfil-dropdown">
+        <a href="#" id="perfil-btn">
+          <img id="avatarMenu" src="/assets/img/avatar.jpg" alt="Avatar" class="avatar">
+        </a>
+        <div class="dropdown-content" id="perfil-menu">
+          <div class="perfil-header">
+            <img id="avatarDropdown" src="assets/img/avatar.jpg" alt="Avatar" class="avatar">
+            <div>
+              <p><strong id="perfil-nome">Usuário</strong></p>
+            </div>
+          </div>
+          <hr>
+          <ul>
+            <li><a href="#">Adicionar conta</a></li>
+            <li><a href="#" id="logoutBtn">Sair</a></li>
+          </ul>
+        </div>
+      </li>
     </ul>
   </nav>
     </header>
