@@ -98,3 +98,5 @@ CREATE TABLE Favoritos (
     FOREIGN KEY (fk_Imagem_id) REFERENCES Imagem(id),
     FOREIGN KEY (fk_Usuario_id) REFERENCES Usuario(id)
 ) ENGINE=InnoDB;
+
+INSERT INTO `tipo_usuario` (`id`, `descricao`) VALUES ('1', 'Acesso ilimitado'), ('2', 'Acesso limitado');
