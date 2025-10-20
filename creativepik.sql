@@ -61,35 +61,6 @@ CREATE TABLE Licenca_Imagem (
     FOREIGN KEY (fk_Imagem_id) REFERENCES Imagem(id)
 ) ENGINE=InnoDB;
 
--- Tabela Tipo_Pagamento
-CREATE TABLE Tipo_Pagamento (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(100) NOT NULL
-) ENGINE=InnoDB;
-
--- Tabela Plano
-CREATE TABLE Plano (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(100) NOT NULL,
-    duracao DATETIME NOT NULL,
-    preco DOUBLE NOT NULL
-) ENGINE=InnoDB;
-
--- Tabela Pagamento
-CREATE TABLE Pagamento (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(100) NOT NULL,
-    fk_Usuario_id INT NOT NULL,
-    valor DOUBLE NOT NULL,
-    status INT NOT NULL,
-    data_pagamento DATETIME,
-    fk_Tipo_Pagamento_id INT NOT NULL,
-    fk_Plano_id INT NOT NULL,
-    FOREIGN KEY (fk_Usuario_id) REFERENCES Usuario(id),
-    FOREIGN KEY (fk_Tipo_Pagamento_id) REFERENCES Tipo_Pagamento(id),
-    FOREIGN KEY (fk_Plano_id) REFERENCES Plano(id)
-) ENGINE=InnoDB;
-
 -- Tabela Favoritos (Relacionamento 0..1 entre Usuario e Imagem)
 CREATE TABLE Favoritos (
     id INT AUTO_INCREMENT PRIMARY KEY,
