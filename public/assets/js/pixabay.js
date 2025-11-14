@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // PIXABAY TEM LICENÇA ÚNICA → DOMÍNIO PÚBLICO
         modalLicense.textContent = "Licença: Pixabay License (Domínio Público)";
         modalSummary.textContent =
-            "Você pode usar esta imagem gratuitamente para qualquer finalidade, inclusive comercial, sem pedir permissão. Não é necessário atribuir o autor, mas é recomendado.";
+            "Você pode usar esta imagem gratuitamente para qualquer finalidade, inclusive comercial caso tenha sido modificada, sem pedir permissão. Não é necessário atribuir o autor, mas é recomendado.";
 
         modal.style.display = "flex";
     }
