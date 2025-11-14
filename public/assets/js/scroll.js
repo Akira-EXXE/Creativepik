@@ -38,3 +38,19 @@ buttons.forEach((btn, i) => {
 
 // inicia autoplay após idleTime inicial
 setTimeout(startAutoplay, idleTime);
+
+
+window.addEventListener('load', () => {
+    const gallery = document.querySelector('.pinterest-gallery');
+    const pins = document.querySelectorAll('.pin');
+
+    function resizeMasonry() {
+      // força reflow suave nas imagens
+      pins.forEach(pin => {
+        pin.style.breakInside = 'avoid';
+      });
+    }
+
+    resizeMasonry();
+    window.addEventListener('resize', resizeMasonry);
+  });

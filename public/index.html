@@ -118,12 +118,15 @@
 <!-- FIM CARROSSEL MANUAL BOTÕES -->
 
 <!-- INICIO BARRA-PESQUISA -->
+  <div class="texto-inspirador">
+    <h2>Explore, inspire-se e crie</h2>
+</div>
 
- <!-- <p>Use nosso banco de imagens de dominio público</p> -->
-  <div class="barra-pesquisa">
-    <input type="text" name="" id="" placeholder="Pesquisar..."/>
-    <i class="fa fa-search"></i>
-  </div>
+<div class="barra-pesquisa">
+    <input type="text" id="searchInput" placeholder="Pesquisar..."/>
+    <i class="fa fa-search" id="searchBtn"></i>
+</div>
+
 <!-- FIM BARRA-PESQUISA -->
 
     </div>
@@ -134,46 +137,12 @@
   <h1>EXPLORAR</h1>
 </div>
 
-<div class="galeria">
-  <div class="galeria-grid">
-    <div class="galeria-item">
-      <img src="https://cdn.pixabay.com/photo/2022/05/26/22/14/lake-7223904_640.jpg" alt="Imagem 1">
-      <div class="galeria-info">
-        <p>Lago tranquilo</p>
-      </div>
+  <section class="explorar">
+   
+    <div class="pinterest-gallery">
+    
     </div>
-    <div class="galeria-item">
-      <img src="https://cdn.pixabay.com/photo/2022/05/26/22/14/lake-7223904_640.jpg" alt="Imagem 2">
-      <div class="galeria-info">
-        <p>Pôr do sol no lago</p>
-      </div>
-    </div>
-    <div class="galeria-item">
-      <img src="https://cdn.pixabay.com/photo/2022/05/26/22/14/lake-7223904_640.jpg" alt="Imagem 3">
-      <div class="galeria-info">
-        <p>Reflexos na água</p>
-      </div>
-    </div>
-    <div class="galeria-item">
-      <img src="https://cdn.pixabay.com/photo/2022/05/26/22/14/lake-7223904_640.jpg" alt="Imagem 4">
-      <div class="galeria-info">
-        <p>Lago ao entardecer</p>
-      </div>
-    </div>
-    <div class="galeria-item">
-      <img src="https://cdn.pixabay.com/photo/2022/05/26/22/14/lake-7223904_640.jpg" alt="Imagem 5">
-      <div class="galeria-info">
-        <p>Natureza serena</p>
-      </div>
-    </div>
-    <div class="galeria-item">
-      <img src="https://cdn.pixabay.com/photo/2022/05/26/22/14/lake-7223904_640.jpg" alt="Imagem 6">
-      <div class="galeria-info">
-        <p>Lago e céu azul</p>
-      </div>
-    </div>
-  </div>
-</div>
+  </section>
 
 <!-- FIM EXPLORAR -->
 </main>
@@ -208,10 +177,25 @@
     <p>&copy; 2025 Creativepik - Todos os direitos reservados.</p>
   </div>
 </footer>
+<script src="assets/js/pixabay.js"></script>
+
     <script src="assets/js/mobile-navbar.js"></script>
     <script src="assets/js/scroll.js"></script>
     <script src="assets/js/menu.js"></script>
 
+<!-- ================== MODAL ================== -->
+<div id="imageModal" class="modal">
+    <div class="modal-content">
+        <span id="closeModal" class="close">&times;</span>
+
+        <img id="modalImg" src="" alt="Imagem">
+
+        <p id="modalAuthor"></p>
+        <p id="modalTags"></p>
+        <p id="modalLicense"></p>
+        <p id="modalSummary"></p>
+    </div>
+</div>
 
 
     <!-- Modal de confirmação de logout -->
