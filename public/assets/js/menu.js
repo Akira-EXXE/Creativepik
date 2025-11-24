@@ -9,6 +9,17 @@ document.addEventListener('DOMContentLoaded', () => {
   let usuario = JSON.parse(localStorage.getItem('usuario'));
   let usuariosRecentes = JSON.parse(localStorage.getItem('usuariosRecentes')) || [];
 
+  // --- Helper para montar caminho da foto (fallback para avatar.png)
+  const getFotoPath = (foto) => {
+    if (!foto || foto === 'null' || foto === '') return '/assets/img/avatar.png';
+    // se já for caminho absoluto ou relativo iniciado por /, usa direto
+    if (foto.startsWith('http') || foto.startsWith('/')) return foto;
+    // se for exatamente o nome do avatar padrão, usa a imagem em assets
+    if (foto === 'avatar.png' || foto.toLowerCase().includes('avatar')) return '/assets/img/avatar.png';
+    // caso contrário, assume que é um filename enviado para /uploads
+    return `/uploads/${foto}`;
+  };
+
   // ==========================
   // EXIBIÇÃO DO MENU
   // ==========================
@@ -19,9 +30,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Avatar
       const avatarImgs = menuLogado?.querySelectorAll('#perfil-btn img, .perfil-header img') || [];
-      const fotoUsuario = usuario.foto ? `/uploads/${usuario.foto}` : '/assets/img/avatar.jpg';
+      const fotoUsuario = getFotoPath(usuario?.foto);
       avatarImgs.forEach(img => img.src = fotoUsuario);
-
+      
       // Nome
       const nomeElemento = menuLogado?.querySelector('.perfil-header p strong');
       if (nomeElemento) nomeElemento.textContent = usuario.nome || 'Usuário';
@@ -57,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const li = document.createElement('li');
       li.innerHTML = `
         <a href="#" class="usuario-recente" data-email="${u.email}">
-          <img src="${u.foto ? '/uploads/' + u.foto : '/assets/img/avatar.jpg'}" alt="Avatar" class="avatar">
+          <img src="${getFotoPath(u.foto)}" alt="Avatar" class="avatar">
           ${u.nome}
         </a>`;
       listaRecente.appendChild(li);

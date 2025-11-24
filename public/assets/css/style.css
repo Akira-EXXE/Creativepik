@@ -31,6 +31,120 @@ nav#menu_logado {
   display: none !important;
 }
 
+/* === ÁREA DE UPLOAD – ESTILO PREMIUM === */
+.upload-wrapper {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 30px 28px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 26px rgba(0,0,0,0.08);
+  font-family: "Poppins", sans-serif;
+  animation: fadeIn 0.4s ease;
+}
+
+.upload-wrapper h2 {
+  text-align: center;
+  font-size: 26px;
+  font-weight: 700;
+  color: #ff7220;
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
+}
+
+/* Form rows */
+.form-row {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  margin-bottom: 18px;
+  align-items: center;
+}
+
+/* Inputs */
+.upload-wrapper input[type="file"],
+.upload-wrapper input[type="text"],
+.upload-wrapper textarea,
+.upload-wrapper select {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+  font-family: "Poppins", sans-serif;
+  transition: 0.3s border-color ease, 0.3s box-shadow ease;
+  background: #fafafa;
+}
+
+.upload-wrapper input[type="file"] {
+  background: #fff;
+}
+
+.upload-wrapper input:focus,
+.upload-wrapper textarea:focus,
+.upload-wrapper select:focus {
+  border-color: #ff7220;
+  box-shadow: 0 0 6px rgba(255, 114, 32, 0.4);
+}
+
+/* Preview */
+.preview {
+  max-width: 100%;
+  margin: 12px 0 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+  display: block;
+}
+
+/* Botão */
+.form-btn {
+  background: linear-gradient(135deg, #ff7220, #e45b00);
+  color: #fff;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+  font-size: 16px;
+  width: 160px;
+}
+
+.form-btn:hover {
+  transform: scale(1.04);
+  background: linear-gradient(135deg, #e65d00, #c84f00);
+}
+
+/* Status */
+#status {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Responsivo */
+@media (max-width: 480px) {
+  .upload-wrapper {
+    padding: 22px 18px;
+  }
+
+  .form-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .form-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
 /* === LOGO === */
 .logo {
   font-size: 26px; 
@@ -265,7 +379,8 @@ nav#menu_logado {
   font-size: 2.2rem;
   font-weight: 600;
   background: linear-gradient(to right, #fff, #f8f8f8);
-  -webkit-background-clip: text;
+  background-clip: text;             /* propriedade padrão para compatibilidade */
+  -webkit-background-clip: text;     /* vendor prefix para WebKit */
   -webkit-text-fill-color: transparent;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
   letter-spacing: 1px;
@@ -1045,62 +1160,55 @@ nav#menu_logado {
   border-radius: 5px;
 }
 
-/* 🔹 Container principal — layout tipo Pinterest */
+/* Container tipo Masonry usando columns (sem gaps brancos) */
 .pinterest-gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  grid-template-rows: masonry; /* ativa o layout tipo Pinterest */
-  gap: 18px;
-  padding: 0 20px 60px;
+  column-count: 4;          /* número de colunas em desktop */
+  column-gap: 18px;
   max-width: 1400px;
   margin: 0 auto;
+  padding: 0 20px 60px;
 }
 
-/* 🔹 Cada item da galeria */
+/* cada item deve evitar quebra dentro da coluna */
 .pin {
+  display: inline-block;    /* importante: inline-block para respeitar colunas */
+  width: 100%;              /* ocupa a largura da coluna */
+  margin: 0 0 18px;         /* espaçamento entre "linhas" da coluna */
   border-radius: 14px;
   overflow: hidden;
   background: #fff;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
+/* Imagem: ocupa toda largura da coluna e mantém proporção */
 .pin img {
   width: 100%;
-  display: block;
-  border-radius: 14px;
   height: auto;
-  object-fit: cover;
-  transition: transform 0.3s ease;
+  display: block;
+  border-radius: 14px 14px 0 0; /* só arredonda topo (se quiser) */
+  object-fit: cover;            /* mantém preenchimento; sem cortes estranhos com columns */
+  background: #fff;
 }
 
-/* Efeitos de hover */
+/* Hover */
 .pin:hover {
   transform: translateY(-6px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.12);
 }
 .pin:hover img {
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 
-/* 🔹 Responsividade */
-@media (max-width: 1024px) {
-  .pinterest-gallery {
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 16px;
-  }
+/* Responsividade: ajusta número de colunas */
+@media (max-width: 1200px) {
+  .pinterest-gallery { column-count: 3; column-gap: 16px; }
 }
-@media (max-width: 768px) {
-  .pinterest-gallery {
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 14px;
-  }
+@media (max-width: 900px) {
+  .pinterest-gallery { column-count: 2; column-gap: 14px; }
 }
 @media (max-width: 480px) {
-  .pinterest-gallery {
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 10px;
-  }
+  .pinterest-gallery { column-count: 1; column-gap: 10px; }
 }
 
 

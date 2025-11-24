@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Carregar Imagem - Creativepik</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <style>
+    .upload-wrapper { max-width:700px; margin:40px auto; padding:20px; background:#fff; border-radius:12px; box-shadow:0 6px 20px rgba(0,0,0,0.08); }
+    .preview { max-width:100%; height:auto; display:block; margin:10px 0; border-radius:8px; }
+    .form-row { margin: 10px 0; display:flex; gap:8px; align-items:center; }
+  </style>
+</head>
+<body>
+  <header>
+    <!-- reuse nav -->
+    <a class="logo" href="/">CREATIVEPIK</a>
+  </header>
+
+  <main>
+    <div class="upload-wrapper">
+      <h2>Carregar imagem</h2>
+      <form id="uploadForm" method="post" enctype="multipart/form-data">
+        <div class="form-row">
+          <input type="file" id="imageInput" name="image" accept="image/*" required>
+        </div>
+        <img id="preview" class="preview" src="" alt="" style="display:none;">
+        <div class="form-row">
+          <input type="text" name="title" id="title" placeholder="Título (obrigatório)" required style="flex:1;padding:8px;">
+        </div>
+        <div class="form-row">
+          <textarea name="description" id="description" placeholder="Descrição (opcional)" rows="4" style="flex:1;padding:8px;"></textarea>
+        </div>
+        <div class="form-row">
+          <label for="license">Licença:</label>
+          <select name="license" id="license" style="margin-left:8px;">
+            <option value="">--Selecione--</option>
+            <!-- opções serão preenchidas via JS -->
+          </select>
+        </div>
+
+        <div id="licenseDesc" style="padding:8px 0;color:#444;font-size:0.95rem;"></div>
+        <div class="form-row">
+          <button type="submit" class="form-btn">Enviar</button>
+          <span id="status" style="margin-left:12px;color:#333;"></span>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <script src="/assets/js/upload.js"></script>
+</body>
+</html>
