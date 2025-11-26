@@ -7,6 +7,20 @@ document.addEventListener('DOMContentLoaded', () => {
   const licenseSelect = document.getElementById('license');
   const licenseDesc = document.getElementById('licenseDesc');
 
+licenseSelect?.addEventListener('change', () => {
+  const opt = licenseSelect.selectedOptions[0];
+  const desc = opt?.dataset?.desc || '';
+
+  licenseDesc.textContent = desc;
+
+  if (desc.trim() !== "") {
+    licenseDesc.classList.add("show");
+  } else {
+    licenseDesc.classList.remove("show");
+  }
+});
+
+
   // carrega licenças do servidor (APENAS do banco)
   const loadLicenses = async () => {
     try {
