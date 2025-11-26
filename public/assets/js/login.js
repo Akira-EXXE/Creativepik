@@ -88,10 +88,12 @@ document.addEventListener('DOMContentLoaded', () => {
         body: JSON.stringify(dados)
       });
 
-      const json = await res.json();
+      // If server responds with non-JSON (e.g. HTML 404 page), avoid parsing as JSON
+      const isJSON = res.headers.get("content-type")?.includes("application/json");
+      const json = isJSON ? await res.json() : null;
       msgStatus.style.display = 'block';
 
-      if (res.ok && json.usuario) {
+      if (res.ok && json?.usuario) {
         msgStatus.classList.add('msg-success'); msgStatus.classList.remove('msg-error');
         msgStatus.innerText = json.message || 'Login efetuado!';
 
@@ -109,7 +111,13 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => window.location.href = 'index.html', 1200);
       } else {
         msgStatus.classList.add('msg-error'); msgStatus.classList.remove('msg-success');
-        msgStatus.innerText = json?.error || 'Erro no login!';
+        // If we couldn't parse JSON, fall back to showing a generic/diagnostic message
+        if (!isJSON) {
+          const text = await res.text().catch(() => null);
+          msgStatus.innerText = text ? `Resposta inválida do servidor (${res.status})` : 'Erro no login!';
+        } else {
+          msgStatus.innerText = json?.error || 'Erro no login!';
+        }
       }
     } catch (err) {
       msgStatus.style.display = 'block';

@@ -64,8 +64,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const fd = new FormData();
     fd.append('image', input.files[0]);
     fd.append('title', titleInput.value.trim());
-    fd.append('description', document.getElementById('description').value || '');
+    // support both english id="description" and portuguese id="descricao" so older versions don't break
+    const descriptionEl = document.getElementById('description') || document.getElementById('descricao');
+    const descriptionValue = descriptionEl ? (descriptionEl.value || '') : '';
+    fd.append('description', descriptionValue);
     fd.append('license', licenseSelect.value || ''); // envia id (se preenchido)
+    // if user is logged in, attach userId (saved by login.js in localStorage as 'usuario')
+    try {
+      const usuario = JSON.parse(localStorage.getItem('usuario'));
+      if (usuario && usuario.id) fd.append('userId', String(usuario.id));
+    } catch (_) {
+      // ignore JSON parse errors
+    }
 
     try {
       const res = await fetch('/api/upload', { method: 'POST', body: fd });

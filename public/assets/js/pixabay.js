@@ -76,16 +76,38 @@ document.addEventListener("DOMContentLoaded", () => {
                 page = 1;
             }
 
+            // Render images using the same structure / classes as local images (pin -> pin-image + pin-info)
             data.hits.forEach(img => {
-                const pin = document.createElement("div");
-                pin.classList.add("pin");
+                const pin = document.createElement('div');
+                pin.classList.add('pin');
 
-                pin.innerHTML = `
-                    <img src="${img.webformatURL}" alt="${img.tags}">
-                `;
+                const pinImage = document.createElement('div');
+                pinImage.className = 'pin-image';
+                const imageEl = document.createElement('img');
+                imageEl.src = img.webformatURL;
+                imageEl.alt = img.tags || 'Imagem';
+                imageEl.loading = 'lazy';
+                pinImage.appendChild(imageEl);
+
+                const info = document.createElement('div');
+                info.className = 'pin-info';
+                const h3 = document.createElement('h3');
+                // Use the tags as a readable title when possible
+                h3.textContent = img.tags ? img.tags.split(',')[0] : 'Pixabay image';
+                const p = document.createElement('p');
+                p.textContent = img.tags || '';
+                const small = document.createElement('small');
+                small.textContent = `Autor: ${img.user} • Licença: Pixabay`;
+
+                info.appendChild(h3);
+                info.appendChild(p);
+                info.appendChild(small);
+
+                pin.appendChild(pinImage);
+                pin.appendChild(info);
 
                 // Ao clicar em uma imagem → abre modal com os dados
-                pin.addEventListener("click", () => {
+                pin.addEventListener('click', () => {
                     openModal(img);
                 });
 

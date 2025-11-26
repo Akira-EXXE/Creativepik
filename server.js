@@ -7,6 +7,7 @@ import cors from 'cors';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
 import mysql from 'mysql2/promise';
+import bcrypt from 'bcryptjs';
 
 dotenv.config();
 const __filename = fileURLToPath(import.meta.url);
@@ -24,6 +25,11 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(PUBLIC_DIR));
+
+// rotas de usuário (registro/login) - estava faltando montar esse router
+// user routes mounted under /api/users
+import userRoutes from './src/routes/userRoutes.js';
+app.use('/api/users', userRoutes);
 
 // MySQL pool - configure via .env
 const pool = mysql.createPool({
@@ -89,12 +95,86 @@ app.post('/api/upload', upload.single('image'), async (req, res) => {
     const { title, description = '', license = '', userId } = req.body;
     if (!title || title.trim() === '') return res.status(400).json({ error: 'Título é obrigatório' });
 
-    const fkUsuario = userId ? Number(userId) : Number(process.env.DEFAULT_USER_ID || 1);
+    // Ensure the 'fkUsuario' we use exists — avoid foreign-key failures if default user id doesn't exist.
+    // determine a valid fkUsuario to use. Try, in order:
+    // 1) userId supplied in body (if exists)
+    // 2) DEFAULT_USER_ID env if configured and exists
+    // 3) any existing user in the DB (pick first)
+    // 4) create a fallback "Sistema" user and use it (only if DB has no users)
+    let fkUsuario = null;
     const fileUrl = `/uploads/${req.file.filename}`;
 
     const conn = await pool.getConnection();
     try {
+        console.log('/api/upload -> recebendo upload:', { title: title, userId: userId });
+        // check provided userId first
+      if (userId) {
+        try {
+          const [urows] = await conn.execute('SELECT id FROM usuario WHERE id = ?', [Number(userId)]);
+          console.log('/api/upload -> userId lookup result count =', Array.isArray(urows) ? urows.length : 0);
+          if (Array.isArray(urows) && urows.length > 0) fkUsuario = Number(userId);
+        } catch (ux) {
+          console.warn('Erro ao validar userId informado:', ux.message || ux);
+        }
+      }
+
+      // if still no user, try DEFAULT_USER_ID env var
+      if (!fkUsuario && process.env.DEFAULT_USER_ID) {
+        try {
+          const candidate = Number(process.env.DEFAULT_USER_ID);
+          const [drows] = await conn.execute('SELECT id FROM usuario WHERE id = ?', [candidate]);
+          console.log('/api/upload -> DEFAULT_USER_ID lookup result count =', Array.isArray(drows) ? drows.length : 0);
+          if (Array.isArray(drows) && drows.length > 0) fkUsuario = candidate;
+        } catch (dx) {
+          console.warn('Erro ao validar DEFAULT_USER_ID:', dx.message || dx);
+        }
+      }
+
+      // as a last fallback, try to find any existing user in the DB
+      if (!fkUsuario) {
+        try {
+          const [anyUser] = await conn.execute('SELECT id FROM usuario ORDER BY id ASC LIMIT 1');
+          console.log('/api/upload -> anyUser fallback lookup count =', Array.isArray(anyUser) ? anyUser.length : 0);
+          if (Array.isArray(anyUser) && anyUser.length > 0) fkUsuario = anyUser[0].id;
+        } catch (ax) {
+          console.warn('Erro ao buscar usuário fallback:', ax.message || ax);
+        }
+      }
+
+      // if still not found, create a fallback user so INSERT won't violate NOT NULL FK constraint
+      if (!fkUsuario) {
+        try {
+          const defaultPassHash = await bcrypt.hash('change_me', 10);
+          const [rUser] = await conn.execute(
+            'INSERT INTO usuario (nome, email, senha, data_criacao, foto, fk_Tipo_id) VALUES (?, ?, ?, CURDATE(), ?, ?)',
+            ['Sistema', 'system@localhost', defaultPassHash, 'avatar.jpg', 2]
+          );
+          fkUsuario = rUser.insertId;
+          console.log('/api/upload -> criado usuário fallback id=' + fkUsuario + ' (insert result)', rUser);
+        } catch (cx) {
+          console.error('Erro ao criar usuário fallback:', cx.stack || cx.message || cx);
+          // if even creation fails, set fkUsuario to 1 as last resort (may still fail)
+          fkUsuario = process.env.DEFAULT_USER_ID ? Number(process.env.DEFAULT_USER_ID) : 1;
+        }
+      }
       await conn.beginTransaction();
+
+      // ensure fkUsuario is a valid positive integer; try one more time to resolve if needed
+      if (!Number.isInteger(fkUsuario) || fkUsuario <= 0) {
+        try {
+          const [anyUserAgain] = await conn.execute('SELECT id FROM usuario ORDER BY id ASC LIMIT 1');
+          if (Array.isArray(anyUserAgain) && anyUserAgain.length > 0) fkUsuario = anyUserAgain[0].id;
+        } catch (rx) {
+          console.warn('Falha ao buscar usuário fallback extra:', rx.message || rx);
+        }
+      }
+
+      if (!Number.isInteger(fkUsuario) || fkUsuario <= 0) {
+        // If we still don't have a valid user id, try DEFAULT_USER_ID or 1
+        fkUsuario = process.env.DEFAULT_USER_ID ? Number(process.env.DEFAULT_USER_ID) : 1;
+      }
+
+      console.log('/api/upload -> usando fkUsuario =', fkUsuario);
 
       const [rImg] = await conn.execute(
         'INSERT INTO imagem (data_criacao, titulo, descricao, url, fk_Usuario_id) VALUES (CURDATE(), ?, ?, ?, ?)',
@@ -122,7 +202,8 @@ app.post('/api/upload', upload.single('image'), async (req, res) => {
       }
 
       await conn.commit();
-      return res.json({ success: true, image: { id: imagemId, titulo: title.trim(), descricao, url: fileUrl, licenca_id: licencaId } });
+      // return the uploaded image data — use the request 'description' value as 'descricao' in the response
+      return res.json({ success: true, image: { id: imagemId, titulo: title.trim(), descricao: description, url: fileUrl, licenca_id: licencaId } });
     } catch (err) {
       await conn.rollback();
       throw err;
@@ -130,7 +211,7 @@ app.post('/api/upload', upload.single('image'), async (req, res) => {
       conn.release();
     }
   } catch (err) {
-    console.error(err);
+    console.error('Erro em /api/upload ->', err && (err.stack || err.message || err));
     return res.status(500).json({ error: err.message || 'Erro no servidor' });
   }
 });
@@ -154,6 +235,11 @@ app.get('/api/images', async (req, res) => {
     console.error(err);
     res.status(500).json({ error: 'Erro ao ler imagens' });
   }
+});
+
+// se uma rota /api/* não for encontrada — devolve JSON 404 (evita que /api requests retornem HTML)
+app.use('/api', (req, res) => {
+  return res.status(404).json({ error: 'API endpoint not found' });
 });
 
 // inicializa servidor

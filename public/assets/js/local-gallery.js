@@ -32,10 +32,10 @@ document.addEventListener('DOMContentLoaded', () => {
     modalImg.src = img.url;
     modalImg.alt = img.titulo || 'Imagem';
     modalAuthor.textContent = img.autor ? `Autor: ${img.autor}` : 'Autor: Desconhecido';
-    modalTags.textContent = img.tags || '';
+    modalTags.textContent = img.tags ? `Tags: ${img.tags}` : '';
     modalLicense.textContent = img.licenca_nome ? `Licença: ${img.licenca_nome}` : '';
     modalSummary.textContent = img.descricao || '';
-    imageModal.style.display = 'block';
+    imageModal.style.display = 'flex';
     document.body.style.overflow = 'hidden';
   };
 
@@ -98,9 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
       gallery.insertBefore(card, gallery.firstChild);
     });
 
-    if (images.length === 0) {
-      gallery.innerHTML = '<p style="padding:16px;color:#666">Nenhuma imagem encontrada.</p>';
-    }
+    
   };
 
   (async () => {

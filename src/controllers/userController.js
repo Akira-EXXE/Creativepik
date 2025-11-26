@@ -19,7 +19,7 @@ export async function register(req, res) {
     }
 
     // Verifica se o email já existe
-    const [existing] = await db.query("SELECT id FROM Usuario WHERE email = ?", [email]);
+    const [existing] = await db.query("SELECT id FROM usuario WHERE email = ?", [email]);
     if (existing.length > 0) {
       return res.status(409).json({ error: "Email já cadastrado." });
     }
@@ -29,7 +29,7 @@ export async function register(req, res) {
 
     // Insere no banco
     const [result] = await db.query(
-      `INSERT INTO Usuario (nome, email, senha, foto, data_criacao, fk_Tipo_id)
+      `INSERT INTO usuario (nome, email, senha, foto, data_criacao, fk_Tipo_id)
        VALUES (?, ?, ?, ?, NOW(), 2)`,
       [nome, email, hash, foto]
     );
@@ -62,7 +62,7 @@ export async function login(req, res) {
     }
 
     // Busca o usuário pelo email
-    const [rows] = await db.query("SELECT * FROM Usuario WHERE email = ?", [email]);
+    const [rows] = await db.query("SELECT * FROM usuario WHERE email = ?", [email]);
     if (rows.length === 0) {
       return res.status(404).json({ error: "Usuário não encontrado." });
     }
