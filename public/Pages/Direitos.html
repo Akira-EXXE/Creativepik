@@ -45,7 +45,7 @@
       <li><a href="#">Direitos Autorais</a></li>
       <li><a href="Sobre.html">Sobre</a></li>
       <li><a href="Contato.html">Contato</a></li>
-      <li><a href="#">Carregar</a></li>
+      <li><a href="../upload.html">Carregar</a></li>
 
       <!-- PERFIL -->
       <li class="perfil-dropdown">
@@ -54,7 +54,7 @@
         </a>
         <div class="dropdown-content" id="perfil-menu">
           <div class="perfil-header">
-            <img id="avatarDropdown" src="assets/img/avatar.jpg" alt="Avatar" class="avatar">
+            <img id="avatarDropdown" src="../assets/img/avatar.jpg" alt="Avatar" class="avatar">
             <div>
               <p><strong id="perfil-nome">Usuário</strong></p>
             </div>
@@ -77,10 +77,11 @@
     <!-- HERO / TÍTULO -->
     <section class="hero">
       <div class="hero-inner">
-        <h1>Direitos Autorais & Licenças</h1>
-        <p class="lead">Entenda como proteger, compartilhar e reutilizar conteúdo criativo com segurança — inclusive usando Creative Commons.</p>
-      </div>
-    </section>
+      <div class="Titulo">
+         <h1>Direitos Autorais & Licenças</h1>    </div>
+         <p class="lead">Entenda como proteger, compartilhar e reutilizar conteúdo criativo com segurança — inclusive usando Creative Commons.</p>
+       </div>
+     </section>
 
     <!-- 1 - O QUE SÃO -->
     <section id="o-que-sao" class="card-section centered">
@@ -117,7 +118,7 @@
     <!-- 3 - VIDEO DIREITOS AUTORAIS -->
     <section id="video-direitos" class="video-section">
       <div class="container">
-        <h2>Vídeo — Direitos Autorais (explicação)</h2>
+        <h2>Vídeo — Direitos Autorais</h2>
         <div class="video-card">
           <iframe src="https://www.youtube.com/embed/AGktj05ubhM" title="Vídeo Direitos Autorais" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
@@ -130,14 +131,14 @@
       <div class="container">
         <h2>O que é Creative Commons?</h2>
         <div class="cc-intro">
-          <img src="https://mirrors.creativecommons.org/presskit/cc.primary.srr.svg" alt="Creative Commons" class="cc-logo">
+        
           <div>
             <p>
               Creative Commons (CC) é uma organização sem fins lucrativos que fornece licenças claras e padronizadas para autores
               compartilharem suas obras sob condições específicas. As licenças CC permitem que o autor mantenha seus direitos enquanto
               autoriza certos usos (por exemplo, uso não comercial, com atribuição, etc.).
             </p>
-            <p class="muted">As licenças CC ajudam a comunicar rapidamente o que é permitido — sem a necessidade de negociações legais complexas.</p>
+      
           </div>
         </div>
       </div>
@@ -150,18 +151,7 @@
         <p class="intro">Abaixo estão as licenças mais comuns do Creative Commons. Clique em cada cartão para ver detalhes e sugestões de uso.</p>
 
         <div class="licenses-grid">
-          <!-- CC0 -->
-          <article class="license-card" data-license="cc0">
-            <img class="license-icon" src="https://mirrors.creativecommons.org/presskit/cc.zero.svg" alt="CC0">
-            <h3>CC0 — Sem Direitos Reservados (Public Domain)</h3>
-            <p class="short">Renuncia direitos — a obra pode ser usada livremente sem atribuição.</p>
-            <details>
-              <summary>Mais detalhes & dicas</summary>
-              <p><strong>O que é:</strong> O autor renuncia o máximo possível de direitos, oferecendo a obra como domínio público.</p>
-              <p><strong>Como usar:</strong> Ideal para imagens de domínio público, datasets e material educacional que você quer que qualquer pessoa reutilize sem restrições.</p>
-            </details>
-          </article>
-
+  
           <!-- BY -->
           <article class="license-card" data-license="by">
             <img class="license-icon" src="https://mirrors.creativecommons.org/presskit/cc-icons/cc-by.svg" alt="CC BY">
@@ -237,14 +227,50 @@
 
         <!-- Sugestões gerais de uso -->
         <div class="cc-usage">
-          <h3>Dicas rápidas para escolher uma licença</h3>
-          <ul>
-            <li><strong>Quer máxima liberdade?</strong> Use <em>CC0</em>.</li>
-            <li><strong>Quer crédito e uso comercial permitido?</strong> Use <em>CC BY</em>.</li>
-            <li><strong>Quer que outros compartilhem sob as mesmas regras?</strong> Use <em>BY-SA</em>.</li>
-            <li><strong>Não quer adaptações?</strong> Use <em>BY-ND</em>.</li>
-            <li><strong>Evitar uso comercial?</strong> Use versões com <em>NC</em>.</li>
-          </ul>
+          <h3>Dúvidas rápidas (FAQ) — Escolhendo uma licença</h3>
+
+          <details>
+            <summary>Quer máxima liberdade para sua obra?</summary>
+            <div class="answer">
+              Use <strong>CC0</strong>. A obra é colocada no domínio público e pode ser reutilizada sem exigir atribuição.
+            </div>
+          </details>
+
+          <details>
+            <summary>Quer crédito e permitir uso comercial?</summary>
+            <div class="answer">
+              Use <strong>CC BY</strong>. Permite uso e modificações — desde que o autor seja creditado (nome e link quando possível).
+            </div>
+          </details>
+
+          <details>
+            <summary>Quer que obras derivadas mantenham as mesmas regras?</summary>
+            <div class="answer">
+              Use <strong>CC BY-SA</strong>. Obriga que qualquer obra derivada seja publicada sob a mesma licença (CompartilhaIgual).
+            </div>
+          </details>
+
+          <details>
+            <summary>Não quer que terceiros alterem sua obra?</summary>
+            <div class="answer">
+              Use <strong>CC BY-ND</strong>. Permite redistribuição, inclusive comercial, mas sem adaptações.
+            </div>
+          </details>
+
+          <details>
+            <summary>Quer impedir uso comercial mas permitir adaptações?</summary>
+            <div class="answer">
+              Use versões com <strong>NC</strong> (como <em>CC BY-NC</em> ou <em>CC BY-NC-SA</em>). Atenção: "Não comercial" tem interpretação variável — descreva o que considera comercial.
+            </div>
+          </details>
+
+          <details>
+            <summary>Qual a melhor prática para atribuição?</summary>
+            <div class="answer">
+              Inclua: título da obra, autor, licença (com link para a licença) e, se possível, link para a fonte original. Ex.: "Título" por Autor — CC BY 4.0 (link).
+            </div>
+          </details>
+
         </div>
       </div>
     </section>
@@ -309,37 +335,68 @@
     </div>
   </div>
 </div>
-<script>
-    // mobile menu toggle (simples)
-    const btn = document.querySelector('.mobile-toggle');
-    const navList = document.querySelector('.nav-list');
-    btn?.addEventListener('click', () => {
-      navList?.classList.toggle('open');
-    });
 
-    // opcional: abrir detalhes do cartão em clique (acessibilidade)
-    document.querySelectorAll('.license-card').forEach(card => {
-      const details = card.querySelector('details');
-      card.addEventListener('click', (e) => {
-        // evita toggles ao clicar no summary intero for natural behavior
-        if (e.target.tagName.toLowerCase() === 'details' || e.target.closest('details')) return;
-        if (details) details.open = !details.open;
-      });
-    });
-  </script>
+  <!-- Image modal (reutilizável) -->
+  <div id="imageModal" class="image-modal" aria-hidden="true">
+    <div class="modal-bg" data-close></div>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" data-close aria-label="Fechar">×</button>
+      <div class="modal-body">
+        <figure class="modal-figure">
+          <img class="modal-img" src="" alt="">
+        </figure>
+        <div class="modal-meta">
+          <h3 id="modalTitle" class="modal-title"></h3>
+          <p class="modal-desc"></p>
+          <p class="modal-author"></p>
+          <div class="modal-license">
+            <a class="license-link" href="#" target="_blank" rel="noopener noreferrer">Licença</a>
+          </div>
+          <div class="modal-actions">
+            <a class="btn btn-primary modal-open-source" href="#" target="_blank" rel="noopener noreferrer">Abrir fonte</a>
+            <button class="btn btn-plain" data-close>Fechar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 <script>
-  // torna cards clicáveis: abre/fecha o details dentro do article
+  // torna o summary responsável por abrir/fechar detalhes.
+  // removida a lógica que fazia todo o card ser clicável.
+
   document.querySelectorAll('.license-card').forEach(card => {
-    card.addEventListener('click', (e) => {
-      // não interferir se o usuário clicou diretamente no summary/link
-      const summary = card.querySelector('details > summary');
-      if (!summary) return;
-      // se clicou no próprio details/summary, deixa comportamento nativo
-      if (e.target.closest('details')) return;
-      const details = card.querySelector('details');
-      if (details) details.open = !details.open;
+    const details = card.querySelector('details');
+    if (!details) return;
+
+    // quando o details muda de estado, adiciona/remove .expanded ao card correspondente
+    details.addEventListener('toggle', () => {
+      // fecha outros detalhes abertos quando este é aberto
+      if (details.open) {
+        document.querySelectorAll('.license-card details[open]').forEach(d => {
+          if (d !== details) d.open = false;
+        });
+      }
+
+      // atualiza classes visuais
+      document.querySelectorAll('.license-card').forEach(c => c.classList.remove('expanded'));
+      if (details.open) {
+        card.classList.add('expanded');
+      } else {
+        card.classList.remove('expanded');
+      }
     });
+
+    // garante estado inicial de classe ao carregar
+    if (details.open) card.classList.add('expanded');
+  });
+
+  // mobile menu toggle (preserva funcionalidade existente se houver)
+  const menuBtn = document.querySelector('.mobile-menu');
+  const navList = document.querySelector('.nav-list');
+  menuBtn?.addEventListener('click', () => {
+    navList?.classList.toggle('active');
+    menuBtn.classList.toggle('active');
   });
 </script>
 

@@ -33,22 +33,22 @@ nav#menu_logado {
 
 /* === ÁREA DE UPLOAD – ESTILO PREMIUM === */
 /* Área onde aparece a descrição da licença */
+/* Reserva espaço para a descrição da licença (não muda layout ao mostrar/ocultar) */
 #licenseDesc {
-  min-height: 60px;              /* Reserva um espaço fixo */
-  display: flex;
-  align-items: center;
-  padding: 10px 0;
+  min-height: 64px;                /* reserva espaço */
+  padding: 8px 0;
   color: #444;
   font-size: 0.95rem;
-  transition: opacity 0.25s ease;
-  opacity: 0;                    /* Começa invisível */
+  transition: opacity 0.22s ease, visibility 0.22s ease;
+  opacity: 0;
+  visibility: hidden;
 }
 
-/* Quando houver descrição */
+/* Quando houver descrição, só muda opacidade/visibilidade (sem recalcular layout) */
 #licenseDesc.show {
   opacity: 1;
+  visibility: visible;
 }
-
 
 .page-center {
   min-height: 100vh;
@@ -319,56 +319,106 @@ nav#menu_logado {
   transform: rotate(45deg) translate(-5px, -7px);
 }
 
-/* Modal de confirmação */
+/* Modal de confirmação / visualização de imagem - ajustado para centralizar e aparecer corretamente */
 .modal {
   display: none;
   position: fixed;
-  z-index: 999;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.6);
-  justify-content: center;
+  z-index: 9999;
+  inset: 0; /* top:0; right:0; bottom:0; left:0; */
+  background: rgba(0,0,0,0.65);
+  /* Se o JS adicionar .show ou .active, torna-se flexbox */
   align-items: center;
+  justify-content: center;
 }
 
-.modal-content {
-  background: #fff;
-  border-radius: 16px;
-  padding: 20px 25px;
-  max-width: 350px;
-  text-align: center;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-  animation: fadeIn 0.3s ease;
-}
-
-.modal-actions {
-  margin-top: 20px;
+/* Permite que o modal seja exibido como flex quando a classe for adicionada */
+.modal.show,
+.modal.active {
   display: flex;
-  justify-content: space-around;
 }
 
-.btn-cancel, .btn-confirm {
-  padding: 8px 18px;
-  border: none;
-  border-radius: 8px;
+/* Centraliza o conteúdo também quando o JS fizer display:block (fallback absoluto) */
+.modal .modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  border-radius: 14px;
+  padding: 18px 20px;
+  width: calc(100% - 48px);
+  max-width: 980px;
+  max-height: 92vh;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.35);
+  overflow: auto; /* permite rolar quando conteúdo maior que a caixa */
+  text-align: left;
+  box-sizing: border-box;
+}
+
+/* Botão fechar (estava como span) */
+.modal .close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  font-size: 24px;
+  color: #444;
   cursor: pointer;
-  font-weight: 500;
+  background: rgba(255,255,255,0.9);
+  border-radius: 6px;
+  padding: 4px 8px;
+  line-height: 1;
+  transition: background 0.15s, color 0.15s, transform 0.12s;
+}
+.modal .close:hover {
+  background: #fff;
+  color: #e65a00;
+  transform: translateY(-1px);
 }
 
-.btn-cancel {
-  background: #ccc;
+/* Wrapper da imagem e comportamento responsivo */
+.modal .image-wrapper {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 10px;
+}
+.modal .image-wrapper img {
+  max-width: 100%;
+  max-height: 65vh;
+  object-fit: contain;
+  display: inline-block;
+  border-radius: 10px;
+  box-shadow: 0 6px 22px rgba(0,0,0,0.12);
 }
 
-.btn-confirm {
-  background: #e74c3c;
-  color: #fff;
+/* Texto de autor/tags/licença dentro do modal */
+.modal p {
+  margin: 8px 0;
+  color: #333;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  word-break: break-word;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
+/* Pequenas melhorias para botões de confirmação (caso usados) */
+.modal .modal-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 12px;
 }
 
+/* Responsivo: reduz padding em telas pequenas */
+@media (max-width: 480px) {
+  .modal .modal-content {
+    padding: 14px;
+    border-radius: 10px;
+  }
+  .modal .close {
+    font-size: 20px;
+    top: 8px;
+    right: 8px;
+  }
+}
 
 /* CARROSSEL */
 .slider {
@@ -618,6 +668,13 @@ nav#menu_logado {
   color: #1f2d38;
 }
 
+/* Fundo branco apenas para o conteúdo principal (página de Direitos ficará branca) */
+.site-main{
+  background: #ffffff;
+  color: #0f172a;
+  padding-bottom: 140px; /* espaço entre último conteúdo e rodapé */
+}
+
 .container {
   max-width: 1150px;
   margin: 0 auto;
@@ -632,12 +689,12 @@ nav#menu_logado {
   text-align: center;
 }
 
-.hero-inner h1 {
+/* .hero-inner h1 {
   font-size: 42px;
   font-weight: 800;
   color: #142b3e;
   margin-bottom: 10px;
-}
+} */
 
 .hero .lead {
   max-width: 920px;
@@ -710,6 +767,11 @@ nav#menu_logado {
   text-align: center;
 }
 
+/* Mais espaço abaixo do último vídeo para separar do rodapé */
+.video-section{
+  margin-bottom: 80px;
+}
+
 .video-card {
   margin: 25px auto 0;
   border-radius: 18px;
@@ -769,6 +831,105 @@ nav#menu_logado {
 .row-bottom {
   justify-content: center;
 }
+
+/* ======= CORREÇÃO: Licenses (3-col / mesma altura / details interno) ======= */
+
+.licenses-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+  align-items: start;     /* mantém itens alinhados ao topo */
+  grid-auto-rows: 1fr;    /* faz cada célula da linha ter mesma altura */
+}
+
+/* Card principal */
+.license-card {
+  box-sizing: border-box;
+  height: 100%;           /* ocupa toda a célula da grid */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  padding: 20px;
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid #e9eef0;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+  transition: transform .18s ease, box-shadow .18s ease;
+  overflow: visible;      /* evita cortar o summary/efeitos visuais */
+  min-height: 360px;      /* altura consistente para todos os cards */
+  gap: 12px;
+}
+
+/* Ícone, título e resumo fixos (não esticam) */
+.license-card > .license-icon,
+.license-card > img.license-icon {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto 8px;
+}
+.license-card h3,
+.license-card .short {
+  text-align: center;
+  margin: 0;
+  flex: 0 0 auto;
+}
+
+/* Mantém o details alinhado ao final do card, mas dentro do próprio card */
+.license-card details {
+  margin-top: auto;       /* empurra o details para o final do card */
+  background: #fbfcfd;
+  border: 1px solid #eef2f4;
+  padding: 10px;
+  border-radius: 10px;
+  overflow: hidden;
+  max-height: 48px;       /* altura quando fechado: mostra apenas summary */
+  transition: max-height .28s ease;
+}
+
+/* Quando abrir, expande internamente até um limite — o restante vira scroll interno */
+.license-card details[open] {
+  max-height: 320px;      /* ajuste se precisar mostrar mais conteúdo */
+}
+
+/* Conteúdo interno do details fica rolável se maior que o max-height */
+.license-card details > * {
+  max-height: 280px;
+  overflow: auto;
+}
+
+/* summary com visual de botão e sempre visível */
+.license-card summary {
+  cursor: pointer;
+  list-style: none;
+  outline: none;
+  display: block;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--accent, #ff7a45);
+  text-align: left;
+}
+
+/* remove marcador padrão em browsers WebKit */
+.license-card summary::-webkit-details-marker { display: none; }
+
+/* destaque visual quando expandido (não altera layout da grid) */
+.license-card.expanded {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 34px rgba(0,0,0,0.08);
+}
+
+/* RESPONSIVO */
+@media (max-width: 1020px) {
+  .licenses-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 600px) {
+  .licenses-grid { grid-template-columns: 1fr; }
+}
+/* ======= fim correção ======= */
 
 /* ---------------------------
    LICENSE CARDS
@@ -1185,9 +1346,6 @@ nav#menu_logado {
 .plano button:hover {
   background: #fd5e02;
 }
-
-
-
 
 /* LOGIN / CADASTRO */
 .login-container {
