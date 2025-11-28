@@ -7,9 +7,48 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="icon" href="../assets/img/CREATIVEPIK-logo.ico" type="image/x-icon">
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/direitos.css">
+     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
+  <script>
+  // torna o summary responsável por abrir/fechar detalhes.
+  // removida a lógica que fazia todo o card ser clicável.
+
+  document.querySelectorAll('.license-card').forEach(card => {
+    const details = card.querySelector('details');
+    if (!details) return;
+
+    // quando o details muda de estado, adiciona/remove .expanded ao card correspondente
+    details.addEventListener('toggle', () => {
+      // fecha outros detalhes abertos quando este é aberto
+      if (details.open) {
+        document.querySelectorAll('.license-card details[open]').forEach(d => {
+          if (d !== details) d.open = false;
+        });
+      }
+
+      // atualiza classes visuais
+      document.querySelectorAll('.license-card').forEach(c => c.classList.remove('expanded'));
+      if (details.open) {
+        card.classList.add('expanded');
+      } else {
+        card.classList.remove('expanded');
+      }
+    });
+
+    // garante estado inicial de classe ao carregar
+    if (details.open) card.classList.add('expanded');
+  });
+
+  // mobile menu toggle (preserva funcionalidade existente se houver)
+  const menuBtn = document.querySelector('.mobile-menu');
+  const navList = document.querySelector('.nav-list');
+  menuBtn?.addEventListener('click', () => {
+    navList?.classList.toggle('active');
+    menuBtn.classList.toggle('active');
+  });
+</script>
   <!-- INICIO NAV -->
   <header>
       <nav id="menu_defalt">
@@ -145,136 +184,117 @@
     </section>
 
     <!-- 5 - LICENÇAS CREATIVE COMMONS -->
-    <section id="licencas-creative-commons" class="licenses-section alt">
-      <div class="container">
-        <h2>Licenças Creative Commons</h2>
-        <p class="intro">Abaixo estão as licenças mais comuns do Creative Commons. Clique em cada cartão para ver detalhes e sugestões de uso.</p>
+    <!-- GRID DE LICENÇAS CREATIVE COMMONS + SEÇÃO DE DICAS (FAQ) -->
 
-        <div class="licenses-grid">
-  
-          <!-- BY -->
-          <article class="license-card" data-license="by">
-            <img class="license-icon" src="https://mirrors.creativecommons.org/presskit/cc-icons/cc-by.svg" alt="CC BY">
-            <h3>CC BY — Atribuição</h3>
-            <p class="short">Permite uso comercial e modificação — desde que o autor seja creditado.</p>
-            <details>
-              <summary>Mais detalhes & dicas</summary>
-              <p><strong>O que é:</strong> Quem usar a obra deve creditar o autor (nome + link quando possível).</p>
-              <p><strong>Como usar:</strong> Bom para fotos e ilustrações quando você quer ampla reutilização, inclusive em projetos comerciais, mas mantendo o crédito ao autor.</p>
-            </details>
-          </article>
+<section class="licenses-section container">
+  <h2 class="section-title">Licenças Creative Commons</h2>
 
-          <!-- BY-SA -->
-          <article class="license-card" data-license="by-sa">
-            <img class="license-icon" src="https://mirrors.creativecommons.org/presskit/cc-icons/cc-by-sa.svg" alt="CC BY-SA">
-            <h3>CC BY-SA — Atribuição / CompartilhaIgual</h3>
-            <p class="short">Permite uso e modificação, exigindo que obras derivadas tenham a mesma licença.</p>
-            <details>
-              <summary>Mais detalhes & dicas</summary>
-              <p><strong>O que é:</strong> Exige atribuição e que qualquer obra derivada seja distribuída sob a mesma licença.</p>
-              <p><strong>Como usar:</strong> Ideal para conteúdos colaborativos (Wikipedia usa BY-SA). Evita que terceiros restrinjam derivações.</p>
-            </details>
-          </article>
+ <div class="licenses-grid">
 
-          <!-- BY-ND -->
-          <article class="license-card" data-license="by-nd">
-            <img class="license-icon" src="https://mirrors.creativecommons.org/presskit/cc-icons/cc-by-nd.svg" alt="CC BY-ND">
-            <h3>CC BY-ND — Atribuição / Sem Derivações</h3>
-            <p class="short">Permite uso comercial, mas não permite criar obras derivadas.</p>
-            <details>
-              <summary>Mais detalhes & dicas</summary>
-              <p><strong>O que é:</strong> Você pode redistribuir a obra, com crédito, mas não adaptá-la.</p>
-              <p><strong>Como usar:</strong> Útil para imagens ou designs que o autor não quer que sejam alterados (por exemplo, cartazes oficiais).</p>
-            </details>
-          </article>
+    <!-- CC BY -->
+    <div class="license-card">
+      <img src="https://licensebuttons.net/l/by/4.0/88x31.png" class="license-icon" alt="CC BY">
+      <h3>CC BY</h3>
+      <p class="short">Uso permitido com atribuição ao autor.</p>
+      <details>
+        <summary>Saiba mais</summary>
+        <p>A Licença CC BY permite distribuição, remix, adaptação e uso comercial, desde que o autor seja atribuído.</p>
+        <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">Ver no site</a>
+      </details>
+    </div>
 
-          <!-- BY-NC -->
-          <article class="license-card" data-license="by-nc">
-            <img class="license-icon" src="https://mirrors.creativecommons.org/presskit/cc-icons/cc-by-nc.svg" alt="CC BY-NC">
-            <h3>CC BY-NC — Atribuição / Uso Não Comercial</h3>
-            <p class="short">Permite modificações, mas apenas para usos não comerciais; atribuição obrigatória.</p>
-            <details>
-              <summary>Mais detalhes & dicas</summary>
-              <p><strong>O que é:</strong> Uso permitido desde que não seja para fins comerciais, e com atribuição.</p>
-              <p><strong>Como usar:</strong> Bom para material educacional, blogs pessoais e portfólios que não visam lucro direto.</p>
-            </details>
-          </article>
+    <!-- CC BY-SA -->
+    <div class="license-card">
+      <img src="https://licensebuttons.net/l/by-sa/4.0/88x31.png" class="license-icon" alt="CC BY-SA">
+      <h3>CC BY-SA</h3>
+      <p class="short">Atribuição + compartilhar igual.</p>
+      <details>
+        <summary>Saiba mais</summary>
+        <p>Uso e adaptações são permitidas, inclusive comerciais, desde que a nova obra tenha a mesma licença.</p>
+        <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Ver no site</a>
+      </details>
+    </div>
 
-          <!-- BY-NC-SA -->
-          <article class="license-card" data-license="by-nc-sa">
-            <img class="license-icon" src="https://mirrors.creativecommons.org/presskit/cc-icons/cc-by-nc-sa.svg" alt="CC BY-NC-SA">
-            <h3>CC BY-NC-SA — Atribuição / Não Comercial / CompartilhaIgual</h3>
-            <p class="short">Combina NC e SA: não comercial e obras derivadas sob mesma licença.</p>
-            <details>
-              <summary>Mais detalhes & dicas</summary>
-              <p><strong>O que é:</strong> Não comercial + compartilha igual + atribuição.</p>
-              <p><strong>Como usar:</strong> Indicado para projetos educacionais colaborativos onde se quer evitar exploração comercial sem autorização.</p>
-            </details>
-          </article>
+    <!-- CC BY-ND -->
+    <div class="license-card">
+      <img src="https://licensebuttons.net/l/by-nd/4.0/88x31.png" class="license-icon" alt="CC BY-ND">
+      <h3>CC BY-ND</h3>
+      <p class="short">Atribuição sem permitir modificações.</p>
+      <details>
+        <summary>Saiba mais</summary>
+        <p>Permite redistribuição, inclusive comercial, porém sem modificações.</p>
+        <a href="https://creativecommons.org/licenses/by-nd/4.0/" target="_blank">Ver no site</a>
+      </details>
+    </div>
 
-          <!-- BY-NC-ND -->
-          <article class="license-card" data-license="by-nc-nd">
-            <img class="license-icon" src="https://mirrors.creativecommons.org/presskit/cc-icons/cc-by-nc-nd.svg" alt="CC BY-NC-ND">
-            <h3>CC BY-NC-ND — Atribuição / Não Comercial / Sem Derivações</h3>
-            <p class="short">Uso permitido sem modificações e sem fins comerciais; atribuição obrigatória.</p>
-            <details>
-              <summary>Mais detalhes & dicas</summary>
-              <p><strong>O que é:</strong> A forma mais restrita dentre as licenças CC comuns: apenas redistribuição não comercial sem alterações.</p>
-              <p><strong>Como usar:</strong> Quando o autor quer permitir compartilhamento, mas manter controle total sobre adaptações e evitar uso comercial.</p>
-            </details>
-          </article>
-        </div>
+    <!-- CC BY-NC -->
+    <div class="license-card">
+      <img src="https://licensebuttons.net/l/by-nc/4.0/88x31.png" class="license-icon" alt="CC BY-NC">
+      <h3>CC BY-NC</h3>
+      <p class="short">Uso não comercial + atribuição.</p>
+      <details>
+        <summary>Saiba mais</summary>
+        <p>Permite uso e adaptações, mas sem fins comerciais.</p>
+        <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">Ver no site</a>
+      </details>
+    </div>
 
-        <!-- Sugestões gerais de uso -->
-        <div class="cc-usage">
-          <h3>Dúvidas rápidas (FAQ) — Escolhendo uma licença</h3>
+    <!-- CC BY-NC-SA -->
+    <div class="license-card">
+      <img src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png" class="license-icon" alt="CC BY-NC-SA">
+      <h3>CC BY-NC-SA</h3>
+      <p class="short">Não comercial + compartilhar igual.</p>
+      <details>
+        <summary>Saiba mais</summary>
+        <p>Uso e adaptações não comerciais são permitidos, desde que a nova obra tenha a mesma licença.</p>
+        <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">Ver no site</a>
+      </details>
+    </div>
 
-          <details>
-            <summary>Quer máxima liberdade para sua obra?</summary>
-            <div class="answer">
-              Use <strong>CC0</strong>. A obra é colocada no domínio público e pode ser reutilizada sem exigir atribuição.
-            </div>
-          </details>
+    <!-- CC BY-NC-ND -->
+    <div class="license-card">
+      <img src="https://licensebuttons.net/l/by-nc-nd/4.0/88x31.png" class="license-icon" alt="CC BY-NC-ND">
+      <h3>CC BY-NC-ND</h3>
+      <p class="short">Sem comercial e sem modificações.</p>
+      <details>
+        <summary>Saiba mais</summary>
+        <p>A versão mais restrita: não permite uso comercial nem modificações.</p>
+        <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">Ver no site</a>
+      </details>
+    </div>
 
-          <details>
-            <summary>Quer crédito e permitir uso comercial?</summary>
-            <div class="answer">
-              Use <strong>CC BY</strong>. Permite uso e modificações — desde que o autor seja creditado (nome e link quando possível).
-            </div>
-          </details>
+</div>
 
-          <details>
-            <summary>Quer que obras derivadas mantenham as mesmas regras?</summary>
-            <div class="answer">
-              Use <strong>CC BY-SA</strong>. Obriga que qualquer obra derivada seja publicada sob a mesma licença (CompartilhaIgual).
-            </div>
-          </details>
+</section>
 
-          <details>
-            <summary>Não quer que terceiros alterem sua obra?</summary>
-            <div class="answer">
-              Use <strong>CC BY-ND</strong>. Permite redistribuição, inclusive comercial, mas sem adaptações.
-            </div>
-          </details>
 
-          <details>
-            <summary>Quer impedir uso comercial mas permitir adaptações?</summary>
-            <div class="answer">
-              Use versões com <strong>NC</strong> (como <em>CC BY-NC</em> ou <em>CC BY-NC-SA</em>). Atenção: "Não comercial" tem interpretação variável — descreva o que considera comercial.
-            </div>
-          </details>
+<!-- ====================== -->
+<!-- SEÇÃO DE DICAS (FAQ)  -->
+<!-- ====================== -->
 
-          <details>
-            <summary>Qual a melhor prática para atribuição?</summary>
-            <div class="answer">
-              Inclua: título da obra, autor, licença (com link para a licença) e, se possível, link para a fonte original. Ex.: "Título" por Autor — CC BY 4.0 (link).
-            </div>
-          </details>
+<section class="cc-usage container">
+  <h3>Dicas para usar imagens com segurança</h3>
 
-        </div>
-      </div>
-    </section>
+  <details>
+    <summary>Como saber se posso usar uma imagem?</summary>
+    <p class="answer">Sempre verifique a licença indicada pelo autor. Imagens sem licença explícita devem ser tratadas como "todos os direitos reservados".</p>
+  </details>
 
+  <details>
+    <summary>O que significa atribuição correta?</summary>
+    <p class="answer">Inclua o nome do autor, o título da obra (se existir), a licença usada e o link para a fonte original.</p>
+  </details>
+
+  <details>
+    <summary>Posso modificar qualquer imagem CC?</summary>
+    <p class="answer">Depende: licenças ND proíbem modificações. Já licenças SA obrigam que você mantenha a obra derivada com a mesma licença.</p>
+  </details>
+
+  <details>
+    <summary>Imagens CC podem ser usadas comercialmente?</summary>
+    <p class="answer">Somente licenças sem o termo "NC" permitem uso comercial. Verifique antes de usar em projetos monetizados.</p>
+  </details>
+</section>
     <!-- 6 - VIDEO CREATIVE COMMONS -->
     <section id="video-creative" class="video-section">
       <div class="container">
@@ -288,6 +308,23 @@
 
   </main>
 
+
+
+    <script src="../assets/js/mobile-navbar.js"></script>
+    <script src="../assets/js/scroll.js"></script>
+    <script src="../assets/js/menu.js"></script>
+
+    <!-- Modal de confirmação de logout -->
+<div id="logoutModal" class="modal">
+  <div class="modal-content">
+    <h3>Tem certeza que deseja sair da conta?</h3>
+    <p>Você precisará fazer login novamente para acessar sua conta.</p>
+    <div class="modal-actions">
+      <button id="cancelLogout" class="btn-cancel">Cancelar</button>
+      <button id="confirmLogout" class="btn-confirm">Sair</button>
+    </div>
+  </div>
+</div>
 
 <!-- RODAPÉ -->
 <footer class="footer">
@@ -320,85 +357,5 @@
     <p>&copy; 2025 Creativepik - Todos os direitos reservados.</p>
   </div>
 </footer>
-    <script src="../assets/js/mobile-navbar.js"></script>
-    <script src="../assets/js/scroll.js"></script>
-    <script src="../assets/js/menu.js"></script>
-
-    <!-- Modal de confirmação de logout -->
-<div id="logoutModal" class="modal">
-  <div class="modal-content">
-    <h3>Tem certeza que deseja sair da conta?</h3>
-    <p>Você precisará fazer login novamente para acessar sua conta.</p>
-    <div class="modal-actions">
-      <button id="cancelLogout" class="btn-cancel">Cancelar</button>
-      <button id="confirmLogout" class="btn-confirm">Sair</button>
-    </div>
-  </div>
-</div>
-
-  <!-- Image modal (reutilizável) -->
-  <div id="imageModal" class="image-modal" aria-hidden="true">
-    <div class="modal-bg" data-close></div>
-    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-      <button class="modal-close" data-close aria-label="Fechar">×</button>
-      <div class="modal-body">
-        <figure class="modal-figure">
-          <img class="modal-img" src="" alt="">
-        </figure>
-        <div class="modal-meta">
-          <h3 id="modalTitle" class="modal-title"></h3>
-          <p class="modal-desc"></p>
-          <p class="modal-author"></p>
-          <div class="modal-license">
-            <a class="license-link" href="#" target="_blank" rel="noopener noreferrer">Licença</a>
-          </div>
-          <div class="modal-actions">
-            <a class="btn btn-primary modal-open-source" href="#" target="_blank" rel="noopener noreferrer">Abrir fonte</a>
-            <button class="btn btn-plain" data-close>Fechar</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-<script>
-  // torna o summary responsável por abrir/fechar detalhes.
-  // removida a lógica que fazia todo o card ser clicável.
-
-  document.querySelectorAll('.license-card').forEach(card => {
-    const details = card.querySelector('details');
-    if (!details) return;
-
-    // quando o details muda de estado, adiciona/remove .expanded ao card correspondente
-    details.addEventListener('toggle', () => {
-      // fecha outros detalhes abertos quando este é aberto
-      if (details.open) {
-        document.querySelectorAll('.license-card details[open]').forEach(d => {
-          if (d !== details) d.open = false;
-        });
-      }
-
-      // atualiza classes visuais
-      document.querySelectorAll('.license-card').forEach(c => c.classList.remove('expanded'));
-      if (details.open) {
-        card.classList.add('expanded');
-      } else {
-        card.classList.remove('expanded');
-      }
-    });
-
-    // garante estado inicial de classe ao carregar
-    if (details.open) card.classList.add('expanded');
-  });
-
-  // mobile menu toggle (preserva funcionalidade existente se houver)
-  const menuBtn = document.querySelector('.mobile-menu');
-  const navList = document.querySelector('.nav-list');
-  menuBtn?.addEventListener('click', () => {
-    navList?.classList.toggle('active');
-    menuBtn.classList.toggle('active');
-  });
-</script>
-
 </body>
 </html>

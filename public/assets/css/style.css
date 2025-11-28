@@ -319,106 +319,145 @@ nav#menu_logado {
   transform: rotate(45deg) translate(-5px, -7px);
 }
 
-/* Modal de confirmação / visualização de imagem - ajustado para centralizar e aparecer corretamente */
+/* ===========================
+   MODAL GLOBAL
+=========================== */
 .modal {
-  display: none;
-  position: fixed;
-  z-index: 9999;
-  inset: 0; /* top:0; right:0; bottom:0; left:0; */
-  background: rgba(0,0,0,0.65);
-  /* Se o JS adicionar .show ou .active, torna-se flexbox */
-  align-items: center;
-  justify-content: center;
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 107, 53, 0.15); /* laranja suave */
+    backdrop-filter: blur(5px);
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    animation: fadeBackground 0.3s ease;
 }
 
-/* Permite que o modal seja exibido como flex quando a classe for adicionada */
-.modal.show,
-.modal.active {
-  display: flex;
+@keyframes fadeBackground {
+    from { background: rgba(255, 107, 53, 0); }
+    to { background: rgba(255, 107, 53, 0.15); }
 }
 
-/* Centraliza o conteúdo também quando o JS fizer display:block (fallback absoluto) */
-.modal .modal-content {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: #fff;
-  border-radius: 14px;
-  padding: 18px 20px;
-  width: calc(100% - 48px);
-  max-width: 980px;
-  max-height: 92vh;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.35);
-  overflow: auto; /* permite rolar quando conteúdo maior que a caixa */
-  text-align: left;
-  box-sizing: border-box;
+/* ===========================
+   CONTEÚDO DO MODAL
+=========================== */
+.modal-content {
+    background: #fff;
+    border-radius: 20px;
+    padding: 25px;
+    max-width: 900px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    border-top: 6px solid #ff6b35; /* faixa laranja */
+    box-shadow: 0 12px 28px rgba(255, 107, 53, 0.25);
+    position: relative;
+    animation: fadeIn 0.35s ease-in-out;
 }
 
-/* Botão fechar (estava como span) */
-.modal .close {
-  position: absolute;
-  top: 10px;
-  right: 12px;
-  font-size: 24px;
-  color: #444;
-  cursor: pointer;
-  background: rgba(255,255,255,0.9);
-  border-radius: 6px;
-  padding: 4px 8px;
-  line-height: 1;
-  transition: background 0.15s, color 0.15s, transform 0.12s;
-}
-.modal .close:hover {
-  background: #fff;
-  color: #e65a00;
-  transform: translateY(-1px);
+/* ===========================
+   BOTÃO DE FECHAR (X)
+=========================== */
+.close {
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    font-size: 34px;
+    color: #ff6b35;
+    cursor: pointer;
+    transition: 0.25s;
+    font-weight: bold;
 }
 
-/* Wrapper da imagem e comportamento responsivo */
-.modal .image-wrapper {
-  width: 100%;
-  text-align: center;
-  margin-bottom: 10px;
-}
-.modal .image-wrapper img {
-  max-width: 100%;
-  max-height: 65vh;
-  object-fit: contain;
-  display: inline-block;
-  border-radius: 10px;
-  box-shadow: 0 6px 22px rgba(0,0,0,0.12);
+.close:hover {
+    color: #d44d23;
+    transform: scale(1.18) rotate(5deg);
 }
 
-/* Texto de autor/tags/licença dentro do modal */
-.modal p {
-  margin: 8px 0;
-  color: #333;
-  font-size: 0.95rem;
-  line-height: 1.45;
-  word-break: break-word;
+/* ===========================
+   IMAGEM DO MODAL
+=========================== */
+.image-wrapper {
+    width: 100%;
+    max-height: 65vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 16px;
+    margin-bottom: 20px;
+    border: 2px solid rgba(255, 107, 53, 0.3);
+    background: linear-gradient(
+        135deg,
+        rgba(255, 107, 53, 0.15),
+        rgba(255, 107, 53, 0.05)
+    );
 }
 
-/* Pequenas melhorias para botões de confirmação (caso usados) */
-.modal .modal-actions {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  margin-top: 12px;
+#modalImg {
+    max-width: 100%;
+    max-height: 65vh;
+    object-fit: contain;
+    border-radius: 12px;
 }
 
-/* Responsivo: reduz padding em telas pequenas */
-@media (max-width: 480px) {
-  .modal .modal-content {
-    padding: 14px;
-    border-radius: 10px;
-  }
-  .modal .close {
-    font-size: 20px;
-    top: 8px;
-    right: 8px;
-  }
+/* ===========================
+   TEXTOS
+=========================== */
+.modal-content p {
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+    margin: 8px 0;
+    color: #444;
+    line-height: 1.55;
 }
+
+/* Autor */
+#modalAuthor {
+    font-weight: 600;
+    font-size: 19px;
+    color: #ff6b35;
+}
+
+/* Badge da licença */
+#modalLicense {
+    background: rgba(255, 107, 53, 0.12);
+    padding: 8px 14px;
+    border-radius: 8px;
+    display: inline-block;
+    margin: 10px 0;
+    font-size: 14.5px;
+    font-weight: 600;
+    color: #d44d23;
+    border: 1px solid rgba(255, 107, 53, 0.3);
+}
+
+/* Tags */
+#modalTags {
+    color: #666;
+}
+
+/* Resumo */
+#modalSummary {
+    margin-top: 12px;
+    color: #333;
+}
+
+/* ===========================
+   ANIMAÇÃO DO MODAL
+=========================== */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+
+
 
 /* CARROSSEL */
 .slider {
@@ -516,14 +555,12 @@ nav#menu_logado {
   padding: 14px 24px;
   width: 50%;
   max-width: 700px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
   transition: all 0.3s ease;
   z-index: 9;
 }
 
 .barra-pesquisa:hover {
   transform: translate(-50%, -50%) scale(1.02);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
 }
 
 .barra-pesquisa i {
@@ -653,411 +690,8 @@ nav#menu_logado {
   text-align: center; /* centraliza títulos e parágrafos */
 }
 
-/* Direitos */
-/* ==========================================================
-   CREATIVEPIK — Direitos Autorais / Licenças / Vídeos / FAQ
-   Estilo: Elegante Neutro com Acabamentos Laranja
-   Layout para as 7 licenças usando FLEXBOX
-   ========================================================== */
 
-/* ---------------------------
-   BASE
---------------------------- */
-.site-main {
-  font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, Arial;
-  color: #1f2d38;
-}
 
-/* Fundo branco apenas para o conteúdo principal (página de Direitos ficará branca) */
-.site-main{
-  background: #ffffff;
-  color: #0f172a;
-  padding-bottom: 140px; /* espaço entre último conteúdo e rodapé */
-}
-
-.container {
-  max-width: 1150px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-/* ---------------------------
-   HERO
---------------------------- */
-.hero {
-  padding: 70px 20px 45px;
-  text-align: center;
-}
-
-/* .hero-inner h1 {
-  font-size: 42px;
-  font-weight: 800;
-  color: #142b3e;
-  margin-bottom: 10px;
-} */
-
-.hero .lead {
-  max-width: 920px;
-  margin: 0 auto;
-  font-size: 17px;
-  color: #56626b;
-  line-height: 1.65;
-}
-
-/* ---------------------------
-   TITLES
---------------------------- */
-.section-title {
-  text-align: center;
-  font-size: 30px;
-  margin-bottom: 10px;
-  font-weight: 700;
-  color: #142b3e;
-}
-
-.section-title::after {
-  content: "";
-  display: block;
-  width: 65px;
-  height: 3px;
-  border-radius: 2px;
-  margin: 12px auto 0;
-  background: #ff7a29;
-}
-
-/* ---------------------------
-   BENEFÍCIOS
---------------------------- */
-.benefits {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  gap: 18px;
-  margin: 20px auto 0;
-  padding: 0;
-  list-style: none;
-  max-width: 1000px;
-}
-
-.benefits li {
-  background: #ffffff;
-  border-radius: 12px;
-  padding: 18px;
-  border: 1px solid #eef1f4;
-  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.04);
-}
-
-.benefits strong {
-  color: #ff7a29;
-  margin-bottom: 6px;
-  display: block;
-  font-weight: 700;
-}
-
-.benefits li {
-  color: #3d4a54;
-  font-size: 15.8px;
-}
-
-/* ---------------------------
-   VÍDEO (RETÂNGULO PERFEITO)
---------------------------- */
-.video-section {
-  max-width: 900px;
-  margin: 55px auto;
-  text-align: center;
-}
-
-/* Mais espaço abaixo do último vídeo para separar do rodapé */
-.video-section{
-  margin-bottom: 80px;
-}
-
-.video-card {
-  margin: 25px auto 0;
-  border-radius: 18px;
-  overflow: hidden;
-  background: #f5f7f8;
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.07);
-}
-
-.video-card iframe {
-  width: 100%;
-  aspect-ratio: 20 / 9;
-  display: block;
-  border: 0;
-}
-
-/* ---------------------------
-   CREATIVE COMMONS INTRO
---------------------------- */
-.cc-intro {
-  display: flex;
-  gap: 22px;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.cc-logo {
-  width: 105px;
-}
-
-.muted {
-  color: #6d7680;
-}
-
-/* ---------------------------
-   LICENÇAS — FLEXBOX LAYOUT
-   4 em cima • 3 centralizados abaixo
---------------------------- */
-.licenses-container {
-  margin-top: 40px;
-}
-
-.licenses-row {
-  display: flex;
-  justify-content: center;
-  gap: 22px;
-  margin-bottom: 22px;
-  flex-wrap: wrap;
-}
-
-/* Primeira linha — 4 cartões */
-.row-top {
-  justify-content: space-between;
-}
-
-/* Segunda linha — 3 cartões centralizados */
-.row-bottom {
-  justify-content: center;
-}
-
-/* ======= CORREÇÃO: Licenses (3-col / mesma altura / details interno) ======= */
-
-.licenses-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1.5rem;
-  align-items: start;     /* mantém itens alinhados ao topo */
-  grid-auto-rows: 1fr;    /* faz cada célula da linha ter mesma altura */
-}
-
-/* Card principal */
-.license-card {
-  box-sizing: border-box;
-  height: 100%;           /* ocupa toda a célula da grid */
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  justify-content: flex-start;
-  padding: 20px;
-  border-radius: 12px;
-  background: #fff;
-  border: 1px solid #e9eef0;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
-  transition: transform .18s ease, box-shadow .18s ease;
-  overflow: visible;      /* evita cortar o summary/efeitos visuais */
-  min-height: 360px;      /* altura consistente para todos os cards */
-  gap: 12px;
-}
-
-/* Ícone, título e resumo fixos (não esticam) */
-.license-card > .license-icon,
-.license-card > img.license-icon {
-  width: 48px;
-  height: 48px;
-  object-fit: contain;
-  display: block;
-  margin: 0 auto 8px;
-}
-.license-card h3,
-.license-card .short {
-  text-align: center;
-  margin: 0;
-  flex: 0 0 auto;
-}
-
-/* Mantém o details alinhado ao final do card, mas dentro do próprio card */
-.license-card details {
-  margin-top: auto;       /* empurra o details para o final do card */
-  background: #fbfcfd;
-  border: 1px solid #eef2f4;
-  padding: 10px;
-  border-radius: 10px;
-  overflow: hidden;
-  max-height: 48px;       /* altura quando fechado: mostra apenas summary */
-  transition: max-height .28s ease;
-}
-
-/* Quando abrir, expande internamente até um limite — o restante vira scroll interno */
-.license-card details[open] {
-  max-height: 320px;      /* ajuste se precisar mostrar mais conteúdo */
-}
-
-/* Conteúdo interno do details fica rolável se maior que o max-height */
-.license-card details > * {
-  max-height: 280px;
-  overflow: auto;
-}
-
-/* summary com visual de botão e sempre visível */
-.license-card summary {
-  cursor: pointer;
-  list-style: none;
-  outline: none;
-  display: block;
-  padding: 6px 10px;
-  border-radius: 8px;
-  background: transparent;
-  color: var(--accent, #ff7a45);
-  text-align: left;
-}
-
-/* remove marcador padrão em browsers WebKit */
-.license-card summary::-webkit-details-marker { display: none; }
-
-/* destaque visual quando expandido (não altera layout da grid) */
-.license-card.expanded {
-  transform: translateY(-6px);
-  box-shadow: 0 16px 34px rgba(0,0,0,0.08);
-}
-
-/* RESPONSIVO */
-@media (max-width: 1020px) {
-  .licenses-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-@media (max-width: 600px) {
-  .licenses-grid { grid-template-columns: 1fr; }
-}
-/* ======= fim correção ======= */
-
-/* ---------------------------
-   LICENSE CARDS
---------------------------- */
-.license-card {
-  background: #ffffff;
-  width: 240px;
-  padding: 20px 18px;
-  border-radius: 14px;
-  border: 1px solid #e7ecef;
-  text-align: center;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
-  transition: 0.25s ease;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.license-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 16px 34px rgba(0,0,0,0.10);
-}
-
-.license-icon {
-  width: 68px;
-  height: auto;
-  object-fit: contain;
-  margin: 0 auto;
-}
-
-.license-card h3 {
-  font-size: 18px;
-  font-weight: 700;
-  color: #162d3e;
-  margin: 6px 0;
-}
-
-.license-card .short {
-  color: #58636a;
-  font-size: 0.95rem;
-  min-height: 40px;
-}
-
-/* details (expansível) */
-.license-card details {
-  background: #fbfcfd;
-  border: 1px solid #eef2f4;
-  padding: 12px;
-  border-radius: 10px;
-  margin-top: auto;
-  text-align: left;
-}
-
-.license-card summary {
-  cursor: pointer;
-  font-weight: 700;
-  color: #ff7a29;
-}
-
-.license-card summary::-webkit-details-marker {
-  display: none;
-}
-
-/* ---------------------------
-   FAQ (DICAS) — ESTILO PERGUNTAS
---------------------------- */
-.cc-usage {
-  max-width: 900px;
-  margin: 60px auto;
-}
-
-.cc-usage h3 {
-  font-size: 26px;
-  margin-bottom: 16px;
-  font-weight: 700;
-  color: #142b3e;
-}
-
-.cc-usage details {
-  background: #ffffff;
-  padding: 18px 20px;
-  border-radius: 14px;
-  border: 1px solid #e5eaee;
-  box-shadow: 0 8px 22px rgba(0,0,0,0.04);
-  margin-bottom: 14px;
-  transition: 0.2s ease;
-}
-
-.cc-usage details[open] {
-  box-shadow: 0 12px 28px rgba(0,0,0,0.08);
-}
-
-.cc-usage summary {
-  cursor: pointer;
-  font-weight: 700;
-  font-size: 17px;
-  color: #203948;
-}
-
-.cc-usage summary::-webkit-details-marker {
-  display: none;
-}
-
-.cc-usage .answer {
-  margin-top: 12px;
-  color: #41515c;
-  line-height: 1.63;
-}
-
-/* ---------------------------
-   RESPONSIVO
---------------------------- */
-
-@media (max-width: 1020px) {
-  .row-top, .row-bottom {
-    justify-content: center;
-  }
-  .license-card {
-    width: 44%;
-    max-width: 260px;
-  }
-}
-
-@media (max-width: 670px) {
-  .license-card {
-    width: 90%;
-  }
-}
 
 /* CONTATO */
 .contato-container{
@@ -1561,7 +1195,123 @@ nav#menu_logado {
   .pinterest-gallery { column-count: 1; column-gap: 10px; }
 }
 
+/* ===== BOTÃO VOLTAR – LARANJA E BONITO ===== */
+.voltar-icone {
+  position: absolute;
+  top: 22px;
+  left: 22px;
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 48px;
+  height: 48px;
+
+  background: #ff7a29; /* Laranja */
+  border-radius: 50%;
+  color: #fff;
+
+  font-size: 26px;
+  font-weight: bold;
+  text-decoration: none;
+
+  box-shadow: 0 4px 15px rgba(255,122,41,0.35);
+  transition: 0.25s ease-in-out;
+  z-index: 20;
+}
+
+.voltar-icone:hover {
+  transform: translateX(-4px) scale(1.05);
+  background: #e86817;
+  box-shadow: 0 6px 20px rgba(255,122,41,0.45);
+}
+
+/* ----- Wrapper do upload (fundo unificado dos elementos) ----- */
+.upload-wrapper { 
+  max-width: 700px; 
+  margin: 70px auto 40px auto; 
+  padding: 25px; 
+
+  background: #ffffff; /* Mantém tudo com mesmo fundo */
+  border-radius: 14px; 
+  box-shadow: 0 6px 24px rgba(0,0,0,0.08); 
+  border: 1px solid #eee;
+}
+
+/* ----- Preview da imagem ----- */
+.preview { 
+  max-width: 100%; 
+  height: auto; 
+  display: block; 
+  margin: 12px 0; 
+  border-radius: 10px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+}
+
+/* ----- Linhas do formulário ----- */
+.form-row { 
+  margin: 12px 0; 
+  display: flex; 
+  gap: 8px; 
+  align-items: center; 
+}
+
+.form-row input[type="text"],
+.form-row textarea,
+.form-row select {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 15px;
+  background: #fff;
+}
+
+.form-row input[type="file"] {
+  font-size: 14px;
+}
+
+/* ----- Botão enviar ----- */
+.form-btn {
+  background: #ff7a29;
+  color: white;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.25s ease;
+  font-weight: bold;
+  box-shadow: 0 4px 15px rgba(255,122,41,0.3);
+}
+
+.form-btn:hover {
+  background: #e86817;
+  transform: scale(1.03);
+}
+
+/* ----- Status ----- */
+#status {
+  color: #444;
+}
+
+/* ----- Botão "Saiba Mais" ----- */
+.info-btn {
+  display: none;
+  margin-top: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #ff7a29;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: 0.2s ease;
+}
+
+.info-btn:hover {
+  color: #d45200;
+  text-decoration-thickness: 2px;
+}
 
 
 /* RODAPÉ */
