@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Tempo de geração: 24/11/2025 às 17:27
+-- Tempo de geração: 01/12/2025 às 13:11
 -- Versão do servidor: 8.0.30
 -- Versão do PHP: 8.3.4
 
@@ -71,6 +71,13 @@ CREATE TABLE `imagem` (
   `fk_Usuario_id` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Despejando dados para a tabela `imagem`
+--
+
+INSERT INTO `imagem` (`id`, `data_criacao`, `titulo`, `descricao`, `url`, `fk_Usuario_id`) VALUES
+(1, '2025-12-01', 'Paisagem', 'paisagem', '/uploads/1764594486154-paisagem.jpg', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -108,6 +115,13 @@ CREATE TABLE `licenca_imagem` (
   `fk_Licenca_id` int NOT NULL,
   `fk_Imagem_id` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Despejando dados para a tabela `licenca_imagem`
+--
+
+INSERT INTO `licenca_imagem` (`fk_Licenca_id`, `fk_Imagem_id`) VALUES
+(7, 1);
 
 -- --------------------------------------------------------
 
@@ -233,7 +247,7 @@ ALTER TABLE `favoritos`
 -- AUTO_INCREMENT de tabela `imagem`
 --
 ALTER TABLE `imagem`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `licenca`
